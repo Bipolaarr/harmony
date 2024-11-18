@@ -23,7 +23,7 @@ class SignInPage extends StatelessWidget {
           ),
           Center(
             child: Container(
-              height: 500,
+              height: 455,
               width: 350, 
               decoration: BoxDecoration(
                 color: AppColors.darkBackground,

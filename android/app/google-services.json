@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "13795656082",
+    "project_id": "fb-harmony",
+    "storage_bucket": "fb-harmony.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13795656082:android:32d050bf5c985e70d4c14b",
+        "android_client_info": {
+          "package_name": "fb.harmony.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgec4O8z4miszNV1EXW_-nVZf7uuNg3V4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
