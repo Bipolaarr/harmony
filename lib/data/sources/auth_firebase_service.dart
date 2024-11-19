@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:harmony/data/models/create_user_req.dart';
 
 abstract class AuthFirebaseService {
 
   Future<void> signin();
 
-  Future<void> signup(); 
+  Future<void> signup(CreateUserReq request); 
 
 }
 
@@ -17,17 +18,16 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
   }
 
   @override
-  Future<void> signup() async {
+  Future<void> signup(CreateUserReq request) async {
     
     try{
 
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password)
+        email: request.email,
+        password: request.password,   
+      );
 
-     } on FirebaseAuthException catch (e) {
-
-     }
+    } on FirebaseAuthException catch (e) { }
 
   }
 
