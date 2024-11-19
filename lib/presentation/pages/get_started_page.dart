@@ -5,7 +5,6 @@ import 'package:harmony/core/configs/assets/app_images.dart';
 import 'package:harmony/core/configs/assets/app_vectors.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:harmony/presentation/pages/sign_in.dart';
-import 'package:harmony/presentation/pages/sign_up.dart';
 
 class GetStartedPage extends StatelessWidget{
 

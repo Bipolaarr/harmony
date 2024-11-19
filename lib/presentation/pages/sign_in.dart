@@ -49,7 +49,7 @@ class SignInPage extends StatelessWidget {
                       SizedBox(height: 60,),
                     _signInLabel(),
                     SizedBox(height: 15,),
-                    _UsernameField(),
+                    _EmailField(),
                     SizedBox(height: 15,),
                     _PasswordField(),
                     SizedBox(height: 35,),
@@ -100,10 +100,10 @@ class SignInPage extends StatelessWidget {
 //   return Container(); 
 // }
 
-Widget _UsernameField() {
+Widget _EmailField() {
   return TextField(
     decoration: InputDecoration(
-      hintText: 'Username',
+      hintText: 'Email adress',
       hintStyle: TextStyle(
         fontWeight: FontWeight.w300, 
         color: AppColors.grey, 
@@ -113,7 +113,7 @@ Widget _UsernameField() {
       fillColor: Colors.transparent,
       contentPadding: EdgeInsets.all(15),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(25),
         borderSide: BorderSide(color: AppColors.darkGrey), // Default border color
       ),
       enabledBorder: OutlineInputBorder(
@@ -129,8 +129,9 @@ Widget _UsernameField() {
         borderSide: BorderSide(color: Colors.red), // Color when error
       ),
     ),
-  ); 
+  );  
 }
+
 Widget _PasswordField() {
   return TextField(
     decoration: InputDecoration(
