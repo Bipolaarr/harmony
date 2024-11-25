@@ -1,9 +1,11 @@
+import 'package:dartz/dartz.dart';
 import 'package:harmony/data/models/create_user_req.dart';
+import 'package:harmony/data/models/signin_user_req.dart';
 
 abstract class AuthRepository { 
 
-  Future <void> signup(CreateUserReq request); 
+  Future <Either> signup(CreateUserReq request); 
 
-  Future <void> signin();
+  Future <Either> signin(SigninUserReq request);
 
 }

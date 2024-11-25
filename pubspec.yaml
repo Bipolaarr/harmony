@@ -25,7 +25,9 @@ dependencies:
 
   path_provider: 
 
-  firebase_auth: 
+  firebase_auth:
+
+  dartz:  
 
   get_it: 
 
