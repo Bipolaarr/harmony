@@ -1,10 +1,14 @@
 import 'package:get_it/get_it.dart';
+import 'package:harmony/data/repoimpls/artists_repostiory_implementations.dart';
 import 'package:harmony/data/repoimpls/auth_repository_implementation.dart';
 import 'package:harmony/data/repoimpls/songs_repository_implementation.dart';
+import 'package:harmony/data/sources/artists_firebase_service.dart';
 import 'package:harmony/data/sources/auth_fb_service.dart';
 import 'package:harmony/data/sources/songs_fb_service.dart';
+import 'package:harmony/domain/repositories/artist/artist.dart';
 import 'package:harmony/domain/repositories/auth/auth.dart';
 import 'package:harmony/domain/repositories/song/song.dart';
+import 'package:harmony/domain/usecases/get_all_artists.dart';
 import 'package:harmony/domain/usecases/get_new_songs.dart';
 import 'package:harmony/domain/usecases/signin.dart';
 import 'package:harmony/domain/usecases/signup.dart';
@@ -21,6 +25,11 @@ Future<void> initDependencies() async {
     SongsFirebaseServiceImplementation()
   );
 
+  serviceLocator.registerSingleton<ArtistsFirebaseService>(
+    ArtistsFirebaseServiceImplementation()
+  );
+
+
 
 
   serviceLocator.registerSingleton<AuthRepository>(
@@ -29,6 +38,10 @@ Future<void> initDependencies() async {
 
   serviceLocator.registerSingleton<SongsRepository>(
     SongsRepositoryImplementation()
+  );
+
+  serviceLocator.registerSingleton<ArtistsRepository>(
+    ArtistsRepostioryImplementation()
   );
 
 
@@ -43,6 +56,10 @@ Future<void> initDependencies() async {
 
   serviceLocator.registerSingleton<GetNewSongsUseCase>(
     GetNewSongsUseCase()
-  );      
+  ); 
+
+  serviceLocator.registerSingleton<GetAllArtistsUseCase>(
+    GetAllArtistsUseCase()
+  );        
 
 }

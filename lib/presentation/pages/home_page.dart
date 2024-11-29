@@ -5,6 +5,7 @@ import 'package:harmony/core/configs/assets/app_images.dart';
 import 'package:harmony/core/configs/assets/app_vectors.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:harmony/presentation/widgets/all_artists.dart';
 import 'package:harmony/presentation/widgets/new_songs.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,10 +57,26 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 controller: _tabController,
                 children: [
                   NewSongs(),
-                  Container(),
+                  AllArtists(),
                   Container(),
                   
                 ],
+              ),
+            ),
+            SizedBox(height: 10,), 
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Top Picks for You',
+                    style: TextStyle(
+                    fontFamily: "SF Pro", 
+                    fontWeight: FontWeight.w700,
+                    fontSize: 26,
+                    color: Colors.white,
+                  )
+                )
               ),
             )
           ],
@@ -160,7 +177,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           style: TextStyle(
             fontFamily: 'SF Pro',
             fontSize: 15,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),
@@ -170,7 +187,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           style: TextStyle(
             fontFamily: 'SF Pro',
             fontSize: 15,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),
@@ -180,7 +197,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           style: TextStyle(
             fontFamily: 'SF Pro',
             fontSize: 15,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),

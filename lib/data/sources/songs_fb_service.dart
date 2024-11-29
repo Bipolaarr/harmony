@@ -20,7 +20,7 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
         
         var data = await FirebaseFirestore.instance.collection('Songs')
           .orderBy('releaseDate', descending: true)
-          .limit(3).get();    
+          .limit(5).get();    
 
         for(var element in data.docs) {
           var songModel = SongModel.fromJson(element.data());

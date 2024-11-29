@@ -2,34 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harmony/core/configs/Constansts/app_urls.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
-import 'package:harmony/domain/entities/song/song.dart';
+import 'package:harmony/domain/entities/artist/artist.dart';
 import 'package:harmony/presentation/bloc/all_artists_cubit.dart';
-import 'package:harmony/presentation/bloc/new_songs_cubit.dart';
-import 'package:harmony/presentation/bloc/new_songs_state.dart';
+import 'package:harmony/presentation/bloc/all_artists_state.dart';
 
-class NewSongs extends StatelessWidget{
+
+class AllArtists extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (_) => NewSongsCubit()..getNewSongs(),
+      create: (_) => AllArtistsCubit()..getAllArtists(),
       child: SizedBox(
         height: 200,
-        child: BlocBuilder<NewSongsCubit,NewSongsState>(
+        child: BlocBuilder<AllArtistsCubit,AllArtistsState>(
           builder: (context,state) {
 
-            if (state is NewSongsLoading) { 
+            if (state is AllArtistsLoading) { 
               return Container(
                 alignment: Alignment.center,
-                child: CircularProgressIndicator(
+                child: const CircularProgressIndicator(
                   color: Colors.white,
                 ));
             }
-            if (state is NewSongsLoaded) {
-              return _newSongs(state.songs);
+            if (state is AllArtistsLoaded) {
+              return _allArtists(state.artists);
             }
-            if (state is NewSongsLoadingFailed) {
+            if (state is AllArtistLoadingFailed) {
 
             }
 
@@ -42,20 +42,20 @@ class NewSongs extends StatelessWidget{
 
   }
 
-  Widget _newSongs(List<SongEntity> songs) {
+  Widget _allArtists(List<ArtistEntity> artists) {
   
   return ListView.separated(
     padding: EdgeInsets.only(left: 15, right: 15),
     scrollDirection: Axis.horizontal,
     itemBuilder: (context, index) {
-      String imageUrl = AppUrls.firestorageAlbumCovers + 
-                        Uri.encodeComponent(songs[index].artist + 
-                        ' - ' + songs[index].album + '.jpg') + 
+      String artistUrl = AppUrls.firestorageArtistCovers + 
+                        Uri.encodeComponent(artists[index].name + 
+                        '.jpg') + 
                         '?' + AppUrls.mediaAlt;
-      print(imageUrl);
+      print('Image URL for ${artists[index].name}: $artistUrl');
       return InkWell(
         onTap: () {
-          print('Tapped on: ${songs[index].title} by ${songs[index].artist}');
+          print('Tapped on: ${artists[index].name}');
         },
         highlightColor: AppColors.grey,
         borderRadius: BorderRadius.circular(20),
@@ -71,7 +71,7 @@ class NewSongs extends StatelessWidget{
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(imageUrl),
+                      image: NetworkImage(artistUrl),
                     ),
                   ),
                 ),
@@ -79,21 +79,13 @@ class NewSongs extends StatelessWidget{
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  songs[index].title,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  artists[index].name,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Text(
-                songs[index].album,
-                style: TextStyle(color: Colors.grey),
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                  songs[index].artist,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  overflow: TextOverflow.ellipsis,
-                ),
             ],
           ),
         ),
@@ -101,7 +93,7 @@ class NewSongs extends StatelessWidget{
       );
     },
     separatorBuilder: (context, index) => const SizedBox(width: 15),
-    itemCount: songs.length,
+    itemCount: artists.length,
   );
 }
 
