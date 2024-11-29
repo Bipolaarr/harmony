@@ -10,6 +10,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<void> main() async {
+  await initDependencies();
   WidgetsFlutterBinding.ensureInitialized(); 
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb 
@@ -19,7 +20,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   ); 
-  await initDependencies();
   runApp(const MyApp());
 }
 
@@ -32,8 +32,6 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.darkTheme,
       home: const SplashPage()
     );  
-
-
     
   }
 }
