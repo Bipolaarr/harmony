@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harmony/core/configs/Constansts/app_urls.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:harmony/domain/entities/song/song.dart';
-import 'package:harmony/presentation/bloc/all_artists_cubit.dart';
 import 'package:harmony/presentation/bloc/new_songs_cubit.dart';
 import 'package:harmony/presentation/bloc/new_songs_state.dart';
 

@@ -6,6 +6,7 @@ import 'package:harmony/core/configs/assets/app_vectors.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:harmony/presentation/widgets/all_artists.dart';
+import 'package:harmony/presentation/widgets/all_genres.dart';
 import 'package:harmony/presentation/widgets/new_songs.dart';
 
 class HomePage extends StatefulWidget {
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 children: [
                   NewSongs(),
                   AllArtists(),
-                  Container(),
+                  AllGenres()
                   
                 ],
               ),
@@ -103,7 +104,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           child: Stack(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 15, bottom: 110, right: 150), // Увеличен отступ справа
+                padding: EdgeInsets.only(left: 10, bottom: 110, right: 150), // Увеличен отступ справа
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
@@ -118,7 +119,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 15, bottom: 60, right: 150), // Увеличен отступ справа
+                padding: EdgeInsets.only(left: 10, bottom: 60, right: 150), // Увеличен отступ справа
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
