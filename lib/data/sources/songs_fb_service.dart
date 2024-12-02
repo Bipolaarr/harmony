@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:harmony/data/models/song_model.dart';
@@ -7,6 +9,7 @@ abstract class SongsFirebaseService {
 
   Future<Either> getNewSongs();
 
+  Future<Either> createTopPicksBlock();
 }
 
 class SongsFirebaseServiceImplementation implements SongsFirebaseService {
@@ -28,6 +31,37 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
         }
 
         return Right(songs);
+
+      } catch (e) {
+
+    return Left('An error occured, try again');
+
+    } 
+
+  }
+  
+  @override
+  Future<Either> createTopPicksBlock() async {
+    
+    try { 
+
+      
+
+        List<SongEntity> allSongs = [];
+        
+        var data = await FirebaseFirestore.instance.collection('Songs').get();    
+
+        for(var element in data.docs) {
+          var songModel = SongModel.fromJson(element.data());
+          allSongs.add(songModel.toEntity());
+        }
+
+        var random = Random();
+        allSongs.shuffle(random);
+
+        List<SongEntity> pickedSongs = allSongs.take(10).toList();
+
+        return Right(pickedSongs);
 
       } catch (e) {
 

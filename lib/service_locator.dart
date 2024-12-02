@@ -11,6 +11,7 @@ import 'package:harmony/domain/repositories/artist/artist.dart';
 import 'package:harmony/domain/repositories/auth/auth.dart';
 import 'package:harmony/domain/repositories/genre/genre.dart';
 import 'package:harmony/domain/repositories/song/song.dart';
+import 'package:harmony/domain/usecases/create_top_picks_block.dart';
 import 'package:harmony/domain/usecases/get_all_artists.dart';
 import 'package:harmony/domain/usecases/get_all_genres.dart';
 import 'package:harmony/domain/usecases/get_new_songs.dart';
@@ -76,6 +77,10 @@ Future<void> initDependencies() async {
 
   serviceLocator.registerSingleton<GetAllGenresUseCase>(
     GetAllGenresUseCase()
+  ); 
+
+  serviceLocator.registerSingleton<CreateTopPicksBlock>(
+    CreateTopPicksBlock()
   ); 
 
 }

@@ -4,4 +4,6 @@ abstract class SongsRepository {
 
   Future <Either> getNewSongs();
 
+  Future <Either> createTopPicksBlock();
+
 }

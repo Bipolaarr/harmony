@@ -10,6 +10,15 @@ class SongsRepositoryImplementation extends SongsRepository{
     return await serviceLocator<SongsFirebaseService>().getNewSongs();
 
   }
+  
+  @override
+  Future<Either> createTopPicksBlock() async {
+   
+    return await serviceLocator<SongsFirebaseService>().createTopPicksBlock();
+
+  }
+
+  
 
 
 
