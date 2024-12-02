@@ -93,7 +93,7 @@ class AllGenres extends StatelessWidget{
                               color: Colors.black,
                               fontFamily: 'SF Pro',
                               fontSize: 17,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),

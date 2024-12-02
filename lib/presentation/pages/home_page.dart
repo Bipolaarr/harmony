@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:harmony/presentation/widgets/all_artists.dart';
 import 'package:harmony/presentation/widgets/all_genres.dart';
 import 'package:harmony/presentation/widgets/new_songs.dart';
+import 'package:harmony/presentation/widgets/top_pick_container.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,6 +36,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       appBar: AppBar(
         backgroundColor: AppColors.darkBackground,
         elevation: 0,
+        scrolledUnderElevation: 0,
         centerTitle: true,
         title: SvgPicture.asset(
           AppVectors.whiteNamedLogo,
@@ -79,7 +81,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   )
                 )
               ),
-            )
+            ),
+            SizedBox(height: 10,),
+            TopPickContainer(indx: ['#1','#2','#3','#4','#5'])
           ],
         ),
       ),
