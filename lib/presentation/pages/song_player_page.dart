@@ -5,7 +5,6 @@ import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:harmony/domain/entities/song/song.dart';
 import 'package:harmony/presentation/bloc/song_player_cubit.dart';
 import 'package:harmony/presentation/bloc/song_player_state.dart';
-import 'package:just_audio/just_audio.dart';
 
 class SongPlayerPage extends StatelessWidget{
 
