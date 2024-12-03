@@ -33,6 +33,8 @@ dependencies:
 
   cloud_firestore:
 
+  just_audio:
+
 
 dev_dependencies:
   flutter_test:

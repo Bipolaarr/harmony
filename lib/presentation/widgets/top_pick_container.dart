@@ -40,17 +40,17 @@ class TopPickContainer extends StatelessWidget {
     );
   }
 
-  Widget _topPicksList(List<SongEntity> pickedSongs) {
+  Widget _topPicksList(List<List<SongEntity>> pickedSongs) {
     return ListView.separated(
       padding: EdgeInsets.only(left: 15, right: 15, bottom: 20),
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        // Используем индекс из массива indx
-        String currentIndex = indx[index % indx.length]; // Получаем индекс из массива
+        String currentIndex = indx[index % indx.length];
 
         return InkWell(
           onTap: () {
             print('Tapped on: ${currentIndex}');
+            print(pickedSongs[index]);
           },
           highlightColor: Colors.grey,
           borderRadius: BorderRadius.circular(20),
@@ -90,7 +90,7 @@ class TopPickContainer extends StatelessWidget {
                             Align(
                               alignment: Alignment.center,
                               child: Text(
-                                '${pickedSongs[0].artist}, ' + '${pickedSongs[1].artist}, ' + '${pickedSongs[3].artist}, ' + ' and others', // Отображение артиста
+                                '${pickedSongs[index][0].artist}, ' + '${pickedSongs[index][1].artist}, ' + '${pickedSongs[index][2].artist}, ' + ' and others', // Отображение артиста
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'SF Pro',

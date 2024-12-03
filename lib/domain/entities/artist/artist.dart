@@ -8,4 +8,9 @@ class ArtistEntity {
     required this.name
   });
 
+  @override
+  String toString() {
+    return 'ArtistEntity(name: $name)';
+  } 
+
 }

@@ -7,7 +7,7 @@ class TopPicksBlockLoading extends TopPickBlocksState {}
 
 class TopPicksBlockLoaded extends TopPickBlocksState {
 
-  final List<SongEntity> pickedSongs;
+  final List<List<SongEntity>> pickedSongs;
 
   TopPicksBlockLoaded({required this.pickedSongs});
 

@@ -18,4 +18,9 @@ class SongEntity {
     required this.album
   });
 
+  @override
+  String toString() {
+    return 'SongEntity(title: $title, artist: $artist, genre: $genre, duration: $duration, releaseDate: $releaseDate, album: $album)';
+  }  
+
 }

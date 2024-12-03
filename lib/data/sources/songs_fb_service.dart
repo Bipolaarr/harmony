@@ -48,6 +48,7 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
       
 
         List<SongEntity> allSongs = [];
+        List<List<SongEntity>> pickedSongs = [];
         
         var data = await FirebaseFirestore.instance.collection('Songs').get();    
 
@@ -57,9 +58,14 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
         }
 
         var random = Random();
-        allSongs.shuffle(random);
 
-        List<SongEntity> pickedSongs = allSongs.take(10).toList();
+        for (int i = 0; i < 5; i++) {
+          
+          allSongs.shuffle(random);
+          List<SongEntity> buff = allSongs.take(10).toList();
+          pickedSongs.add(buff);
+
+        }
 
         return Right(pickedSongs);
 

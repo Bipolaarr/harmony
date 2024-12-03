@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               ),
             ),
             SizedBox(height: 10,),
-            TopPickContainer(indx: ['#1','#2','#3','#4','#5'])
+            TopPickContainer(indx: ['#1','#2','#3','#4','#5'],),
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:harmony/domain/entities/song/song.dart';
 import 'package:harmony/presentation/bloc/new_songs_cubit.dart';
 import 'package:harmony/presentation/bloc/new_songs_state.dart';
+import 'package:harmony/presentation/pages/song_player_page.dart';
 
 class NewSongs extends StatelessWidget{
 
@@ -42,6 +43,8 @@ class NewSongs extends StatelessWidget{
   }
 
   Widget _newSongs(List<SongEntity> songs) {
+
+  
   
   return ListView.separated(
     padding: EdgeInsets.only(left: 15, right: 15),
@@ -55,6 +58,9 @@ class NewSongs extends StatelessWidget{
       return InkWell(
         onTap: () {
           print('Tapped on: ${songs[index].title} by ${songs[index].artist}');
+          Navigator.push( context,
+          MaterialPageRoute(builder: (context) => SongPlayerPage(song: songs[index],)),
+    );
         },
         highlightColor: AppColors.grey,
         borderRadius: BorderRadius.circular(20),

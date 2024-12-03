@@ -27,6 +27,8 @@ class ArtistsFirebaseServiceImplementation implements ArtistsFirebaseService {
           artists.add(artistModel.toEntity());
         }
 
+        print(data);
+
         return Right(artists);
 
       } catch (e) {
