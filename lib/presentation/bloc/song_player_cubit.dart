@@ -3,43 +3,32 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 
 class SongPlayerCubit extends Cubit<SongPlayerState> {
-
-  AudioPlayer audioPlayer = AudioPlayer();
-
+  final AudioPlayer audioPlayer = AudioPlayer();
   Duration songDuration = Duration.zero;
   Duration songPosition = Duration.zero;
 
   SongPlayerCubit() : super(SongPlayerLoading()) {
-
-    audioPlayer.positionStream.listen((position) { 
+    audioPlayer.positionStream.listen((position) {
       songPosition = position;
       updateSongPlayer();
     });
 
-    audioPlayer.durationStream.listen((duration) { 
+    audioPlayer.durationStream.listen((duration) {
       songDuration = duration!;
     });
   }
 
   void updateSongPlayer() {
-    emit(
-      SongPlayerLoaded()
-    );
+    emit(SongPlayerLoaded());
   }
 
-
-  Future<void> loadSong(String url) async{
-    print(url);
+  Future<void> loadSong(String url) async {
     try {
       await audioPlayer.setUrl(url);
       autoPlayWhenOpenedSong();
-      emit(
-        SongPlayerLoaded()
-      );
-    } catch(e){
-      emit(
-        SongPlayerLoadingFailed()
-      );
+      emit(SongPlayerLoaded());
+    } catch (e) {
+      emit(SongPlayerLoadingFailed());
     }
   }
 
@@ -49,19 +38,18 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
     } else {
       audioPlayer.play();
     }
-    emit(
-      SongPlayerLoaded()
-    );
+    emit(SongPlayerLoaded());
   }
 
   void autoPlayWhenOpenedSong() {
-    
     audioPlayer.play();
-    emit(
-      SongPlayerLoaded()
-    );
+    emit(SongPlayerLoaded());
   }
-  
+
+  void seekTo(Duration position) {
+    audioPlayer.seek(position);
+  }
+
   @override
   Future<void> close() {
     audioPlayer.dispose();

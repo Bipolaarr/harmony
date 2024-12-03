@@ -116,14 +116,16 @@ class SongPlayerPage extends StatelessWidget{
               ),
             ],
           ),
-          IconButton(
-            onPressed: () {
-              // Handle the button press
-            },
-            icon: const Icon(
-              Icons.favorite_border_rounded,
-              color: Colors.grey,
-              size: 40,
+          Center(
+            child: IconButton(
+              onPressed: () {
+                // Handle the button press
+              },
+              icon: const Icon(
+                Icons.favorite_border_rounded,
+                color: Colors.grey,
+                size: 40,
+              ),
             ),
           ),
         ],
@@ -132,155 +134,162 @@ class SongPlayerPage extends StatelessWidget{
   }
 
   Widget _songPlayer() {
-  return Padding(
-    padding: EdgeInsets.only(left: 5, right: 5, top: 10),
-    child: BlocBuilder<SongPlayerCubit, SongPlayerState>(
-      builder: (context, state) {
-        if (state is SongPlayerLoading) {
-          return CircularProgressIndicator(color: Colors.white);
-        }
-        if (state is SongPlayerLoaded) {
-          return Column(
-            children: [
-              Slider(
-                thumbColor: Colors.white,
-                activeColor: Colors.grey,
-                value: context.read<SongPlayerCubit>().songPosition.inSeconds.toDouble(),
-                min: 0.0,
-                max: context.read<SongPlayerCubit>().songDuration.inSeconds.toDouble(),
-                onChanged: (value) {},
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 17),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Padding(
+      padding: EdgeInsets.only(left: 5, right: 5, top: 10),
+      child: BlocBuilder<SongPlayerCubit, SongPlayerState>(
+        builder: (context, state) {
+          if (state is SongPlayerLoading) {
+            return CircularProgressIndicator(color: Colors.white);
+          }
+          if (state is SongPlayerLoaded) {
+            return Column(
+              children: [
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    trackHeight: 6.0, // Увеличьте высоту трека
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0), // Увеличьте размер thumb
+                  ),
+                  child: Slider(
+                    thumbColor: Colors.white,
+                    activeColor: Colors.grey,
+                    value: context.read<SongPlayerCubit>().songPosition.inSeconds.toDouble(),
+                    min: 0.0,
+                    max: context.read<SongPlayerCubit>().songDuration.inSeconds.toDouble(),
+                    onChanged: (value) {
+                      final newPosition = Duration(seconds: value.toInt());
+                      context.read<SongPlayerCubit>().seekTo(newPosition);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 17),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 7),
+                        child: Text(
+                          formatDuration(context.read<SongPlayerCubit>().songPosition),
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'SF Pro',
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 7),
+                        child: Text(
+                          formatDuration(context.read<SongPlayerCubit>().songDuration),
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'SF Pro',
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 7),
-                      child: Text(
-                        formatDuration(context.read<SongPlayerCubit>().songPosition),
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontFamily: 'SF Pro',
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          // Handle previous song
+                        },
+                        highlightColor: AppColors.grey,
+                        borderRadius: BorderRadius.circular(50),
+                        child: Container(
+                          height: 75,
+                          width: 75,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.darkBackground,
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.skip_previous_rounded,
+                              size: 75,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 7),
-                      child: Text(
-                        formatDuration(context.read<SongPlayerCubit>().songDuration),
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontFamily: 'SF Pro',
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                    SizedBox(width: 10), // Reduced space between buttons
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          context.read<SongPlayerCubit>().playOrPauseSong();
+                        },
+                        highlightColor: AppColors.grey,
+                        borderRadius: BorderRadius.circular(50),
+                        child: Container(
+                          height: 75,
+                          width: 75,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.darkBackground,
+                          ),
+                          child: Center(
+                            child: Icon(
+                              context.read<SongPlayerCubit>().audioPlayer.playing
+                                  ? Icons.pause
+                                  : Icons.play_circle_fill_outlined,
+                              size: 75,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10), // Reduced space between buttons
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          // Handle next song
+                        },
+                        highlightColor: AppColors.grey,
+                        borderRadius: BorderRadius.circular(50),
+                        child: Container(
+                          height: 75,
+                          width: 75,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.darkBackground,
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.skip_next_rounded,
+                              size: 75,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Center(
-                    child: InkWell(
-                      onTap: () {
-                        // Handle previous song
-                      },
-                      highlightColor: AppColors.grey,
-                      borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        height: 75,
-                        width: 75,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.darkBackground,
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.skip_previous_rounded,
-                            size: 75,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10), // Reduced space between buttons
-                  Center(
-                    child: InkWell(
-                      onTap: () {
-                        context.read<SongPlayerCubit>().playOrPauseSong();
-                      },
-                      highlightColor: AppColors.grey,
-                      borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        height: 75,
-                        width: 75,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.darkBackground,
-                        ),
-                        child: Center(
-                          child: Icon(
-                            context.read<SongPlayerCubit>().audioPlayer.playing
-                                ? Icons.pause
-                                : Icons.play_circle_fill_outlined,
-                            size: 75,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10), // Reduced space between buttons
-                  Center(
-                    child: InkWell(
-                      onTap: () {
-                        // Handle next song
-                      },
-                      highlightColor: AppColors.grey,
-                      borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        height: 75,
-                        width: 75,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.darkBackground,
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.skip_next_rounded,
-                            size: 75,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          );
-        }
-        if (state is SongPlayerLoadingFailed) {
-          return Container(); // Handle loading failed state
-        }
+              ],
+            );
+          }
+          if (state is SongPlayerLoadingFailed) {
+            return Container(); // Handle loading failed state
+          }
 
-        return Container();
-      },
-    ),
-  );
-}
+          return Container();
+        },
+      ),
+    );
+  }
 
   String formatDuration(Duration duration) {
-
     final minutes = duration.inMinutes.remainder(60);
     final seconds = duration.inSeconds.remainder(60);
-    return '${minutes.toString().padLeft(1,'0')}:${seconds.toString().padLeft(2,'0')}';
-
+    return '${minutes.toString().padLeft(1, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
 
