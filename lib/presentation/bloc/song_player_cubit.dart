@@ -6,6 +6,7 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
   final AudioPlayer audioPlayer = AudioPlayer();
   Duration songDuration = Duration.zero;
   Duration songPosition = Duration.zero;
+  double volume = 1.0; // Initialize volume
 
   SongPlayerCubit() : super(SongPlayerLoading()) {
     audioPlayer.positionStream.listen((position) {
@@ -19,14 +20,14 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
   }
 
   void updateSongPlayer() {
-    emit(SongPlayerLoaded());
+    emit(SongPlayerLoaded(volume: volume)); // Emit volume in the loaded state
   }
 
   Future<void> loadSong(String url) async {
     try {
       await audioPlayer.setUrl(url);
       autoPlayWhenOpenedSong();
-      emit(SongPlayerLoaded());
+      emit(SongPlayerLoaded(volume: volume)); // Emit initial volume
     } catch (e) {
       emit(SongPlayerLoadingFailed());
     }
@@ -38,16 +39,22 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
     } else {
       audioPlayer.play();
     }
-    emit(SongPlayerLoaded());
+    emit(SongPlayerLoaded(volume: volume)); // Emit current volume
   }
 
   void autoPlayWhenOpenedSong() {
     audioPlayer.play();
-    emit(SongPlayerLoaded());
+    emit(SongPlayerLoaded(volume: volume)); // Emit current volume
   }
 
   void seekTo(Duration position) {
     audioPlayer.seek(position);
+  }
+
+  void setVolume(double newVolume) {
+    volume = newVolume; // Update the volume variable
+    audioPlayer.setVolume(volume);
+    emit(SongPlayerLoaded(volume: volume)); // Emit new volume
   }
 
   @override

@@ -37,7 +37,7 @@ class SongPlayerPage extends StatelessWidget{
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.of(context).pop(); // Go back to the previous screen
+            Navigator.of(context).pop(); 
           },
         ),
         actions: [
@@ -69,7 +69,7 @@ class SongPlayerPage extends StatelessWidget{
                       ' - ' + song.album + '.jpg') + '?' + AppUrls.mediaAlt;
 
     return Padding(
-      padding: EdgeInsets.only(top: 50,),
+      padding: EdgeInsets.only(top: 30,),
       child: Container(
         height: 350,
         width: 350,
@@ -89,9 +89,9 @@ class SongPlayerPage extends StatelessWidget{
 
   Widget _songDetails(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 10, left: 25, right: 20), // Add right padding for better layout
+      padding: EdgeInsets.only(top: 10, left: 25, right: 20), 
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribute space between children
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, 
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,8 +146,8 @@ class SongPlayerPage extends StatelessWidget{
               children: [
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
-                    trackHeight: 6.0, // Увеличьте высоту трека
-                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0), // Увеличьте размер thumb
+                    trackHeight: 6.0, 
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0), 
                   ),
                   child: Slider(
                     thumbColor: Colors.white,
@@ -193,7 +193,7 @@ class SongPlayerPage extends StatelessWidget{
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
@@ -221,7 +221,7 @@ class SongPlayerPage extends StatelessWidget{
                         ),
                       ),
                     ),
-                    SizedBox(width: 10), // Reduced space between buttons
+                    SizedBox(width: 10), 
                     Center(
                       child: InkWell(
                         onTap: () {
@@ -247,11 +247,11 @@ class SongPlayerPage extends StatelessWidget{
                         ),
                       ),
                     ),
-                    SizedBox(width: 10), // Reduced space between buttons
+                    SizedBox(width: 10), 
                     Center(
                       child: InkWell(
                         onTap: () {
-                          // Handle next song
+                          
                         },
                         highlightColor: AppColors.grey,
                         borderRadius: BorderRadius.circular(50),
@@ -273,11 +273,36 @@ class SongPlayerPage extends StatelessWidget{
                     ),
                   ],
                 ),
+                SizedBox(height: 15,),
+                Padding(
+                  padding: EdgeInsets.only(left: 25, right: 15), 
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center, 
+                    children: [
+                      Icon(Icons.volume_down_rounded, color: Colors.white), 
+                      SizedBox(width: 1), 
+                      Expanded(
+                        child: Slider(
+                          value: state.volume, 
+                          thumbColor: Colors.white,
+                          activeColor: Colors.grey,
+                          min: 0.0,
+                          max: 1.0,
+                          onChanged: (value) {
+                            context.read<SongPlayerCubit>().setVolume(value);
+                          },
+                        ),
+                      ),
+                      Icon(Icons.volume_up_rounded, color: Colors.white), 
+                      SizedBox(width: 1),
+                    ],
+                  ),
+                ),
               ],
             );
           }
           if (state is SongPlayerLoadingFailed) {
-            return Container(); // Handle loading failed state
+            return Container(); 
           }
 
           return Container();
