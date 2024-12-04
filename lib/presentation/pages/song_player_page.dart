@@ -201,6 +201,34 @@ class SongPlayerPage extends StatelessWidget{
                     Center(
                       child: InkWell(
                         onTap: () {
+                          
+                        },
+                        highlightColor: AppColors.grey,
+                        borderRadius: BorderRadius.circular(50),
+                        child: Padding(
+                          padding: EdgeInsets.all(3),
+                          child: Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.transparent,
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.repeat_rounded,
+                                size: 25,
+                                color: AppColors.darkGrey
+                              ),
+                            ),
+                          ),
+                        )
+                      ),
+                    ),
+                    SizedBox(width: 10,),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
                           // Handle previous song
                         },
                         highlightColor: AppColors.grey,
@@ -269,6 +297,34 @@ class SongPlayerPage extends StatelessWidget{
                             ),
                           ),
                         ),
+                      ),
+                    ),
+                    SizedBox(width: 10,),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          
+                        },
+                        highlightColor: AppColors.grey,
+                        borderRadius: BorderRadius.circular(50),
+                        child: Padding(
+                          padding: EdgeInsets.all(3),
+                          child: Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.transparent,
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.shuffle_rounded,
+                                size: 25,
+                                color: AppColors.darkGrey,
+                              ),
+                            ),
+                          ),
+                        )
                       ),
                     ),
                   ],
