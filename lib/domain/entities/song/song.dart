@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:harmony/core/configs/Constansts/app_urls.dart';
 
 class SongEntity { 
 
@@ -22,5 +23,9 @@ class SongEntity {
   String toString() {
     return 'SongEntity(title: $title, artist: $artist, genre: $genre, duration: $duration, releaseDate: $releaseDate, album: $album)';
   }  
+
+  String get url {
+    return '${AppUrls.firestorageSongs}${Uri.encodeComponent('$artist - $title.mp3')}?${AppUrls.mediaAlt}';
+  }
 
 }

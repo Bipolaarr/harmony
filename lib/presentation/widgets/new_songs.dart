@@ -59,7 +59,7 @@ class NewSongs extends StatelessWidget{
         onTap: () {
           print('Tapped on: ${songs[index].title} by ${songs[index].artist}');
           Navigator.push( context,
-          MaterialPageRoute(builder: (context) => SongPlayerPage(song: songs[index],)),
+          MaterialPageRoute(builder: (context) => SongPlayerPage(songs: songs, index: index,)),
     );
         },
         highlightColor: AppColors.grey,
