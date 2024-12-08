@@ -117,33 +117,39 @@ class SongPlayerPage extends StatelessWidget{
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${currentSong.title}',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'SF Pro',
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
+              Expanded(
+                flex: 2, // Adjust the flex as needed
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${currentSong.title}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'SF Pro',
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      overflow: TextOverflow.ellipsis, // Prevent overflow
                     ),
-                  ),
-                  Text(
-                    '${currentSong.artist}',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontFamily: 'SF Pro',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                    Text(
+                      '${currentSong.artist}',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontFamily: 'SF Pro',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      overflow: TextOverflow.ellipsis, // Prevent overflow
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              SizedBox(width: 10), // Add space between text and icon
               Center(
                 child: IconButton(
                   onPressed: () {
-                    // Обработать нажатие кнопки
+                    // Handle button press
                   },
                   icon: const Icon(
                     Icons.favorite_border_rounded,

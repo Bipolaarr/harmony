@@ -4,12 +4,11 @@ import 'package:harmony/core/configs/assets/app_images.dart';
 import 'package:harmony/domain/entities/song/song.dart';
 import 'package:harmony/presentation/bloc/top_pick_blocks_state.dart';
 import 'package:harmony/presentation/bloc/top_picks_block_cubit.dart';
-import 'package:harmony/presentation/pages/song_player_page.dart';
+import 'package:harmony/presentation/pages/playlist_page.dart';
 
 class TopPickContainer extends StatelessWidget {
   final List<String> indx; // Поле для indx
 
-  // Конструктор принимает indx
   TopPickContainer({required this.indx});
 
   @override
@@ -52,8 +51,8 @@ class TopPickContainer extends StatelessWidget {
           onTap: () {
             print('Tapped on: ${currentIndex}');
             print(pickedSongs[index]);
-            Navigator.push( context,
-          MaterialPageRoute(builder: (context) => SongPlayerPage(songs: pickedSongs[index], index: 0,)));
+              Navigator.push( context,
+            MaterialPageRoute(builder: (context) => PlaylistPage(songs: pickedSongs[index], title: 'Top Picks for You, _Username')));
           },
           highlightColor: Colors.grey,
           borderRadius: BorderRadius.circular(20),

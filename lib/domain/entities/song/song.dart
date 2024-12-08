@@ -28,4 +28,8 @@ class SongEntity {
     return '${AppUrls.firestorageSongs}${Uri.encodeComponent('$artist - $title.mp3')}?${AppUrls.mediaAlt}';
   }
 
+  String get coverImageUrl {
+  return '${AppUrls.firestorageAlbumCovers}${Uri.encodeComponent('$artist - $album.jpg')}?${AppUrls.mediaAlt}'; 
+}
+
 }
