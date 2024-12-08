@@ -52,7 +52,7 @@ class TopPickContainer extends StatelessWidget {
             print('Tapped on: ${currentIndex}');
             print(pickedSongs[index]);
               Navigator.push( context,
-            MaterialPageRoute(builder: (context) => PlaylistPage(songs: pickedSongs[index], title: 'Top Picks for You, _Username')));
+            MaterialPageRoute(builder: (context) => PlaylistPage(songs: pickedSongs[index], title: 'Top Picks for You')));
           },
           highlightColor: Colors.grey,
           borderRadius: BorderRadius.circular(20),

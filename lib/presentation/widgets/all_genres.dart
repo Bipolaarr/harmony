@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harmony/core/configs/assets/app_images.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:harmony/domain/entities/genre/genre.dart';
+import 'package:harmony/domain/usecases/get_songs_by_genre.dart';
 import 'package:harmony/presentation/bloc/all_genres_cubit.dart';
 import 'package:harmony/presentation/bloc/all_genres_state.dart';
+import 'package:harmony/presentation/pages/playlist_page.dart';
+
 
 
 class AllGenres extends StatelessWidget{
@@ -49,8 +52,20 @@ class AllGenres extends StatelessWidget{
     scrollDirection: Axis.horizontal,
     itemBuilder: (context, index) {
       return InkWell(
-        onTap: () {
+        onTap: () async{
           print('Tapped on: ${genres[index].name}');
+          final result = await GetSongsByGenre().call(params: genres[index].name);
+          result.fold(
+            (error) {
+              print('Error: $error');
+            },
+            (songs) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PlaylistPage(songs: songs, title: '${genres[index].name}')),
+              );
+            },
+          );  
         },
         highlightColor: AppColors.grey,
         borderRadius: BorderRadius.circular(20),

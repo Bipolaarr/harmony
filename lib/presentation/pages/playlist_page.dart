@@ -13,10 +13,20 @@ class PlaylistPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 30,
+        toolbarHeight: 50,
         backgroundColor: AppColors.darkBackground,
         elevation: 0,
         scrolledUnderElevation: 0,
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'SF Pro',
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
@@ -35,23 +45,6 @@ class PlaylistPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Fixed header
-          Container(
-            height: 90,
-            color: Colors.transparent, // Set background to transparent
-            padding: const EdgeInsets.only(left: 20, bottom: 5, top: 5),
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
-
-          // Scrollable list view
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(left: 20, right: 10),
@@ -127,7 +120,7 @@ class PlaylistPage extends StatelessWidget {
                       color: Colors.white,
                       fontFamily: 'SF Pro',
                       fontSize: 14,
-                      fontWeight: FontWeight.w300,
+                      fontWeight: FontWeight.w400,
                     ),
                     overflow: TextOverflow.ellipsis, // Prevent overflow
                   ),

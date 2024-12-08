@@ -18,6 +18,19 @@ class SongsRepositoryImplementation extends SongsRepository{
 
   }
 
+  Future<Either> getSongsByArtist(String artist) async {
+   
+    return await serviceLocator<SongsFirebaseService>().getSongsByArtist(artist);
+
+  }
+
+  Future<Either> getSongsByGenre(String genre) async {
+   
+    return await serviceLocator<SongsFirebaseService>().getSongsByGenre(genre);
+
+  }
+
+
   
 
 

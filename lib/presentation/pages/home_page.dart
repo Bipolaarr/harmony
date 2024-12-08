@@ -5,6 +5,8 @@ import 'package:harmony/core/configs/assets/app_images.dart';
 import 'package:harmony/core/configs/assets/app_vectors.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:harmony/domain/usecases/get_songs_by_artist.dart';
+import 'package:harmony/presentation/pages/playlist_page.dart';
 import 'package:harmony/presentation/widgets/all_artists.dart';
 import 'package:harmony/presentation/widgets/all_genres.dart';
 import 'package:harmony/presentation/widgets/new_songs.dart';
@@ -92,7 +94,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   Widget _RecBannerClickable() {
     return InkWell(
-      onTap: () {},
+      onTap: () async {
+        final result = await GetSongsByArtist().call(params: 'Pop Smoke');
+          result.fold(
+            (error) {
+              print('Error: $error');
+            },
+            (songs) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PlaylistPage(songs: songs, title: 'Pop Smoke Essentials')),
+              );
+            },
+          );
+      },
       highlightColor: AppColors.grey,
       borderRadius: BorderRadius.circular(20),
       child: Padding(

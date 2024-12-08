@@ -6,4 +6,8 @@ abstract class SongsRepository {
 
   Future <Either> createTopPicksBlock();
 
+  Future <Either> getSongsByArtist(String artist);
+
+  Future <Either> getSongsByGenre(String genre);
+
 }

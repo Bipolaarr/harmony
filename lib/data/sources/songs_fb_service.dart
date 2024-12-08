@@ -10,6 +10,11 @@ abstract class SongsFirebaseService {
   Future<Either> getNewSongs();
 
   Future<Either> createTopPicksBlock();
+
+  Future<Either<String, List<SongEntity>>> getSongsByArtist(String artist);
+
+  Future<Either<String, List<SongEntity>>> getSongsByGenre(String genre);
+
 }
 
 class SongsFirebaseServiceImplementation implements SongsFirebaseService {
@@ -45,8 +50,6 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
     
     try { 
 
-      
-
         List<SongEntity> allSongs = [];
         List<List<SongEntity>> pickedSongs = [];
         
@@ -75,6 +78,44 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
 
     } 
 
+  }
+  
+  @override
+  Future<Either<String, List<SongEntity>>> getSongsByGenre(String genre) async {
+    try {
+      List<SongEntity> genreSongs = [];
+      var data = await FirebaseFirestore.instance.collection('Songs')
+          .where('genre', isEqualTo: genre)
+          .get();
+
+      for (var element in data.docs) {
+        var songModel = SongModel.fromJson(element.data());
+        genreSongs.add(songModel.toEntity());
+      }
+
+      return Right(genreSongs);
+    } catch (e) {
+      return Left('An error occurred, try again');
+    }
+  }
+  
+   @override
+  Future<Either<String, List<SongEntity>>> getSongsByArtist(String artist) async {
+    try {
+      List<SongEntity> artistSongs = [];
+      var data = await FirebaseFirestore.instance.collection('Songs')
+          .where('artist', isEqualTo: artist)
+          .get();
+
+      for (var element in data.docs) {
+        var songModel = SongModel.fromJson(element.data());
+        artistSongs.add(songModel.toEntity());
+      }
+
+      return Right(artistSongs);
+    } catch (e) {
+      return Left('An error occurred, try again');
+    }
   }
 
 }
