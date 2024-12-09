@@ -59,7 +59,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
 
       );
 
-      FirebaseFirestore.instance.collection('Users').add(
+      FirebaseFirestore.instance.collection('Users').doc(data.user?.uid).set(
         {
           'username' : request.username,
           'email' : data.user?.email,

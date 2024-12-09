@@ -10,4 +10,8 @@ abstract class SongsRepository {
 
   Future <Either> getSongsByGenre(String genre);
 
+  Future <Either> addOrRemoveFavourites(String SongId);
+
+  Future <bool> isFavourite(String SongId);
+
 }
