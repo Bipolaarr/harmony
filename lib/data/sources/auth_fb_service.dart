@@ -25,7 +25,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         
       );
 
-      return Right('Welcome back!');
+      return const Right('Welcome back!');
 
     } on FirebaseAuthException catch (e) {
 
@@ -67,7 +67,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         }
       );
 
-      return Right('Account have been successfully created');
+      return const Right('Account have been successfully created');
 
     } on FirebaseAuthException catch (e) {
 

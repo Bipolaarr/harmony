@@ -6,6 +6,7 @@ import 'package:harmony/domain/entities/song/song.dart';
 import 'package:harmony/presentation/bloc/song_player_cubit.dart';
 import 'package:harmony/presentation/bloc/song_player_state.dart';
 import 'package:harmony/presentation/pages/home_page.dart';
+import 'package:harmony/presentation/widgets/favourite_button.dart';
 
 // ignore: must_be_immutable
 class SongPlayerPage extends StatelessWidget{
@@ -14,7 +15,7 @@ class SongPlayerPage extends StatelessWidget{
   int index;
   
 
-  SongPlayerPage({required this.songs, required this.index});
+  SongPlayerPage({super.key, required this.songs, required this.index});
 
   String getURL() { 
     final songUrl = AppUrls.firestorageSongs + Uri.encodeComponent(songs[index].artist + 
@@ -34,7 +35,7 @@ class SongPlayerPage extends StatelessWidget{
             elevation: 0,
             scrolledUnderElevation: 0,
             centerTitle: true,
-            title: Text(
+            title: const Text(
               'Now Playing',
               style: TextStyle(
                 color: Colors.white,
@@ -44,7 +45,7 @@ class SongPlayerPage extends StatelessWidget{
               ),
             ),
             leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () { 
               final songPlayerCubit = context.read<SongPlayerCubit?>();
                 if (songPlayerCubit != null) {
@@ -53,7 +54,7 @@ class SongPlayerPage extends StatelessWidget{
                 }
                 Navigator.pop(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()), // Замените HomePage на ваш виджет
+                  MaterialPageRoute(builder: (context) => const HomePage()), // Замените HomePage на ваш виджет
                    // Удалить все предыдущие маршруты
                 );
               },
@@ -61,7 +62,7 @@ class SongPlayerPage extends StatelessWidget{
             actions: [
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.more_vert, color: Colors.white),
+                icon: const Icon(Icons.more_vert, color: Colors.white),
               ),
             ],
           ),
@@ -89,7 +90,7 @@ class SongPlayerPage extends StatelessWidget{
                         '?' + AppUrls.mediaAlt;
 
         return Padding(
-          padding: EdgeInsets.only(top: 30),
+          padding: const EdgeInsets.only(top: 30),
           child: Container(
             height: 350,
             width: 350,
@@ -113,7 +114,7 @@ class SongPlayerPage extends StatelessWidget{
         final currentSong = cubit.playlist[cubit.currentSongIndex];
 
         return Padding(
-          padding: EdgeInsets.only(top: 10, left: 25, right: 20),
+          padding: const EdgeInsets.only(top: 10, left: 25, right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -124,7 +125,7 @@ class SongPlayerPage extends StatelessWidget{
                   children: [
                     Text(
                       '${currentSong.title}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontFamily: 'SF Pro',
                         fontSize: 24,
@@ -134,7 +135,7 @@ class SongPlayerPage extends StatelessWidget{
                     ),
                     Text(
                       '${currentSong.artist}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontFamily: 'SF Pro',
                         fontSize: 18,
@@ -145,20 +146,11 @@ class SongPlayerPage extends StatelessWidget{
                   ],
                 ),
               ),
-              SizedBox(width: 10), // Add space between text and icon
+              const SizedBox(width: 10), // Add space between text and icon
               Center(
-                child: IconButton(
-                  onPressed: () {
-                    // Handle button press
-                  },
-                  icon: const Icon(
-                    Icons.favorite_border_rounded,
-                    color: Colors.grey,
-                    size: 40,
-                  ),
-                ),
-              ),
-            ],
+                child: FavouriteButton(song: songs[index], size: 40.0),
+              )
+            ]
           ),
         );
       },
@@ -167,11 +159,11 @@ class SongPlayerPage extends StatelessWidget{
 
   Widget _songPlayer() {
     return Padding(
-      padding: EdgeInsets.only(left: 5, right: 5, top: 10),
+      padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
       child: BlocBuilder<SongPlayerCubit, SongPlayerState>(
         builder: (context, state) {
           if (state is SongPlayerLoading) {
-            return CircularProgressIndicator(color: Colors.white);
+            return const CircularProgressIndicator(color: Colors.white);
           }
           if (state is SongPlayerLoaded) {
 
@@ -182,7 +174,7 @@ class SongPlayerPage extends StatelessWidget{
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     trackHeight: 6.0, 
-                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0), 
+                    thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10.0), 
                   ),
                   child: Slider(
                     thumbColor: Colors.white,
@@ -205,7 +197,7 @@ class SongPlayerPage extends StatelessWidget{
                         padding: const EdgeInsets.only(left: 7),
                         child: Text(
                           formatDuration(context.read<SongPlayerCubit>().songPosition),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.grey,
                             fontFamily: 'SF Pro',
                             fontSize: 15,
@@ -217,7 +209,7 @@ class SongPlayerPage extends StatelessWidget{
                         padding: const EdgeInsets.only(right: 7),
                         child: Text(
                           formatDuration(context.read<SongPlayerCubit>().songDuration),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.grey,
                             fontFamily: 'SF Pro',
                             fontSize: 15,
@@ -228,7 +220,7 @@ class SongPlayerPage extends StatelessWidget{
                     ],
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
@@ -241,11 +233,11 @@ class SongPlayerPage extends StatelessWidget{
                         highlightColor: AppColors.grey,
                         borderRadius: BorderRadius.circular(50),
                         child: Padding(
-                          padding: EdgeInsets.all(3),
+                          padding: const EdgeInsets.all(3),
                           child: Container(
                             height: 35,
                             width: 35,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: Colors.transparent,
                             ),
@@ -260,20 +252,20 @@ class SongPlayerPage extends StatelessWidget{
                         )
                       ),
                     ),
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
                     Center(
                       child: IconButton(
                         onPressed: () {
                           context.read<SongPlayerCubit>().previousSong();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.skip_previous_rounded,
                           size: 65,
                           color: Colors.white,
                           )
                       ),
                     ),
-                    SizedBox(width: 10), 
+                    const SizedBox(width: 10), 
                     Center(
                       child: InkWell(
                         onTap: () {
@@ -284,7 +276,7 @@ class SongPlayerPage extends StatelessWidget{
                         child: Container(
                           height: 75,
                           width: 75,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: AppColors.darkBackground,
                           ),
@@ -299,20 +291,20 @@ class SongPlayerPage extends StatelessWidget{
                         ),
                       ),
                     ),
-                    SizedBox(width: 10), 
+                    const SizedBox(width: 10), 
                     Center(
                       child: IconButton(
                         onPressed: () {
                           context.read<SongPlayerCubit>().nextSong();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.skip_next_rounded,
                           size: 65,
                           color:Colors.white,
                           )
                       ),
                     ),
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
                     Center(
                       child: InkWell(
                         onTap: () {
@@ -321,11 +313,11 @@ class SongPlayerPage extends StatelessWidget{
                         highlightColor: AppColors.grey,
                         borderRadius: BorderRadius.circular(50),
                         child: Padding(
-                          padding: EdgeInsets.all(3),
+                          padding: const EdgeInsets.all(3),
                           child: Container(
                             height: 35,
                             width: 35,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: Colors.transparent,
                             ),
@@ -342,14 +334,14 @@ class SongPlayerPage extends StatelessWidget{
                     ),
                   ],
                 ),
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
                 Padding(
-                  padding: EdgeInsets.only(left: 25, right: 15), 
+                  padding: const EdgeInsets.only(left: 25, right: 15), 
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center, 
                     children: [
-                      Icon(Icons.volume_down_rounded, color: Colors.white), 
-                      SizedBox(width: 1), 
+                      const Icon(Icons.volume_down_rounded, color: Colors.white), 
+                      const SizedBox(width: 1), 
                       Expanded(
                         child: Slider(
                           value: state.volume, 
@@ -362,8 +354,8 @@ class SongPlayerPage extends StatelessWidget{
                           },
                         ),
                       ),
-                      Icon(Icons.volume_up_rounded, color: Colors.white), 
-                      SizedBox(width: 1),
+                      const Icon(Icons.volume_up_rounded, color: Colors.white), 
+                      const SizedBox(width: 1),
                     ],
                   ),
                 ),

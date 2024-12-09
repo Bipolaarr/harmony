@@ -30,8 +30,8 @@ class GenresFirebaseServiceImplementation implements GenresFirebaseService {
         return Right(genres);
 
       } catch (e) {
-
-    return Left('An error occured, try again');
+    
+    return const Left('An error occured, try again');
 
     }
 

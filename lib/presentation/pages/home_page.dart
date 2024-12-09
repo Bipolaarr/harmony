@@ -1,10 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:harmony/core/configs/assets/app_images.dart';
 import 'package:harmony/core/configs/assets/app_vectors.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:harmony/domain/usecases/get_songs_by_artist.dart';
 import 'package:harmony/presentation/pages/playlist_page.dart';
 import 'package:harmony/presentation/widgets/all_artists.dart';
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: _RecBannerClickable()
             ),
@@ -62,14 +62,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 controller: _tabController,
                 children: [
                   NewSongs(),
-                  AllArtists(),
+                  const AllArtists(),
                   AllGenres()
                   
                 ],
               ),
             ),
-            SizedBox(height: 10,), 
-            Padding(
+            const SizedBox(height: 10,), 
+            const Padding(
               padding: EdgeInsets.only(left: 20),
                 child: Align(
                   alignment: Alignment.centerLeft,
@@ -84,8 +84,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 )
               ),
             ),
-            SizedBox(height: 10,),
-            TopPickContainer(indx: ['#1','#2','#3','#4','#5'],),
+            const SizedBox(height: 10,),
+            TopPickContainer(indx: const ['#1','#2','#3','#4','#5'],),
           ],
         ),
       ),
@@ -111,16 +111,16 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       highlightColor: AppColors.grey,
       borderRadius: BorderRadius.circular(20),
       child: Padding(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: ClipRRect(
         borderRadius: BorderRadius.circular(20), // Закругление контейнера
         child: Container(
           height: 150,
           width: 350,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xffF3F3F3),
           ),
-          child: Stack(
+          child: const Stack(
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 10, bottom: 110, right: 150), // Увеличен отступ справа
@@ -177,12 +177,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   
   Widget _tabs() {
   return TabBar(
-    padding: EdgeInsets.all(10),
+    padding: const EdgeInsets.all(10),
     dividerColor: Colors.transparent,
     splashBorderRadius: BorderRadius.circular(20),
     controller: _tabController,
     labelColor: Colors.white,
-    unselectedLabelColor: Color(0xff7A7A7A),
+    unselectedLabelColor: const Color(0xff7A7A7A),
     isScrollable: false,
     indicator: BoxDecoration(
       color: Colors.transparent,
@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     ),
     indicatorWeight: 0,
     indicatorSize: TabBarIndicatorSize.tab,
-    tabs: [
+    tabs: const [
       Tab(
         child: Text(
           'New Songs',

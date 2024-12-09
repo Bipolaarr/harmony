@@ -8,7 +8,7 @@ class GetSongsByArtist implements Usecase<Either<String, List<SongEntity>>, Stri
   @override
   Future<Either<String, List<SongEntity>>> call({String? params}) async {
     if (params == null) {
-      return Left('Genre parameter is required');
+      return const Left('Genre parameter is required');
     }
     return await serviceLocator<SongsFirebaseService>().getSongsByArtist(params);
   }

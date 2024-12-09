@@ -9,6 +9,8 @@ class SongEntity {
   final num duration; 
   final Timestamp releaseDate; 
   final String album;
+  final bool isFavourite;
+  final String songId; 
 
   SongEntity ({
     required this.title,
@@ -16,7 +18,9 @@ class SongEntity {
     required this.genre,
     required this.duration,
     required this.releaseDate, 
-    required this.album
+    required this.album,
+    required this.isFavourite,
+    required this.songId
   });
 
   @override

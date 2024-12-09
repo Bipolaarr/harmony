@@ -1,3 +1,5 @@
+// ignore_for_file: await_only_futures
+
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,6 +7,8 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:harmony/data/models/song_model.dart';
 import 'package:harmony/domain/entities/song/song.dart';
+import 'package:harmony/domain/usecases/is_favourite.dart';
+import 'package:harmony/service_locator.dart';
 
 abstract class SongsFirebaseService {
 
@@ -37,6 +41,9 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
 
         for(var element in data.docs) {
           var songModel = SongModel.fromJson(element.data());
+          bool isFavourite = await serviceLocator<IsFavouriteUseCase>().call(params: element.reference.id);
+          songModel.isFavourite = isFavourite;
+          songModel.songId = element.reference.id;
           songs.add(songModel.toEntity());
         }
 
@@ -44,7 +51,7 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
 
       } catch (e) {
 
-    return Left('An error occured, try again');
+    return const Left('An error occured, try again');
 
     } 
 
@@ -61,7 +68,10 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
         var data = await FirebaseFirestore.instance.collection('Songs').get();    
 
         for(var element in data.docs) {
-          var songModel = SongModel.fromJson(element.data());
+           var songModel = SongModel.fromJson(element.data());
+          bool isFavourite = await serviceLocator<IsFavouriteUseCase>().call(params: element.reference.id);
+          songModel.isFavourite = isFavourite;
+          songModel.songId = element.reference.id;
           allSongs.add(songModel.toEntity());
         }
 
@@ -79,7 +89,7 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
 
       } catch (e) {
 
-    return Left('An error occured, try again');
+    return const Left('An error occured, try again');
 
     } 
 
@@ -95,12 +105,15 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
 
       for (var element in data.docs) {
         var songModel = SongModel.fromJson(element.data());
+        bool isFavourite = await serviceLocator<IsFavouriteUseCase>().call(params: element.reference.id);
+        songModel.isFavourite = isFavourite;
+        songModel.songId = element.reference.id;
         genreSongs.add(songModel.toEntity());
       }
 
       return Right(genreSongs);
     } catch (e) {
-      return Left('An error occurred, try again');
+      return const Left('An error occurred, try again');
     }
   }
   
@@ -114,12 +127,15 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
 
       for (var element in data.docs) {
         var songModel = SongModel.fromJson(element.data());
+        bool isFavourite = await serviceLocator<IsFavouriteUseCase>().call(params: element.reference.id);
+        songModel.isFavourite = isFavourite;
+        songModel.songId = element.reference.id;
         artistSongs.add(songModel.toEntity());
       }
 
       return Right(artistSongs);
     } catch (e) {
-      return Left('An error occurred, try again');
+      return const Left('An error occurred, try again');
     }
   }
   
@@ -158,7 +174,7 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
     return Right(isFavourite);
 
     } on Exception {
-      return Left('An Error Occured');
+      return const Left('An Error Occured');
     }
 
   }

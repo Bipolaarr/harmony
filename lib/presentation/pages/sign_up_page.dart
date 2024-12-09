@@ -21,7 +21,7 @@ class SignUpPage extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(AppImages.bluredBackGround),
                 fit: BoxFit.fill,
@@ -40,7 +40,7 @@ class SignUpPage extends StatelessWidget {
                     color: Colors.black.withOpacity(0.25),
                     spreadRadius: 10,
                     blurRadius: 40,
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
@@ -53,18 +53,18 @@ class SignUpPage extends StatelessWidget {
                       height: 40,
                       width: 40,
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     _registerLabel(),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     _emailField(),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     _usernameField(),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     _passwordField(),
-                    SizedBox(height: 35),
+                    const SizedBox(height: 35),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(400, 55),
+                        minimumSize: const Size(400, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         ),
@@ -82,14 +82,14 @@ class SignUpPage extends StatelessWidget {
                             var snackbar = SnackBar(
                               content: Text(
                                 l,
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                                 textAlign: TextAlign.center,
                                 ),
                               // width: 350,
                               backgroundColor: AppColors.darkBackground,
-                              duration: Duration(seconds: 3),
+                              duration: const Duration(seconds: 3),
                               behavior: SnackBarBehavior.floating,
-                              margin: EdgeInsets.only(top: 0, left: 10, right: 10), // Adjust top margin
+                              margin: const EdgeInsets.only(top: 0, left: 10, right: 10), // Adjust top margin
                               shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                               ),
@@ -101,7 +101,7 @@ class SignUpPage extends StatelessWidget {
                           }
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         'Sign up',
                         style: TextStyle(
                           fontFamily: 'SF Pro',
@@ -111,7 +111,7 @@ class SignUpPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     _signInText(context),
                   ],
                 ),
@@ -140,29 +140,29 @@ class SignUpPage extends StatelessWidget {
       controller: _usernameController,
       decoration: InputDecoration(
         hintText: 'Username',
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           fontWeight: FontWeight.w300,
           color: AppColors.grey,
           fontSize: 14,
         ),
         filled: true,
         fillColor: Colors.transparent,
-        contentPadding: EdgeInsets.all(15),
+        contentPadding: const EdgeInsets.all(15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: AppColors.darkGrey),
+          borderSide: const BorderSide(color: AppColors.darkGrey),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: AppColors.darkGrey),
+          borderSide: const BorderSide(color: AppColors.darkGrey),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Colors.white),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: const BorderSide(color: Colors.red),
         ),
       ),
     );
@@ -173,29 +173,29 @@ class SignUpPage extends StatelessWidget {
       controller: _emailController,
       decoration: InputDecoration(
         hintText: 'Email address',
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           fontWeight: FontWeight.w300,
           color: AppColors.grey,
           fontSize: 14,
         ),
         filled: true,
         fillColor: Colors.transparent,
-        contentPadding: EdgeInsets.all(15),
+        contentPadding: const EdgeInsets.all(15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: AppColors.darkGrey),
+          borderSide: const BorderSide(color: AppColors.darkGrey),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: AppColors.darkGrey),
+          borderSide: const BorderSide(color: AppColors.darkGrey),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Colors.white),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: const BorderSide(color: Colors.red),
         ),
       ),
     );
@@ -206,29 +206,29 @@ class SignUpPage extends StatelessWidget {
       controller: _passwordController,
       decoration: InputDecoration(
         hintText: 'Password',
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           fontWeight: FontWeight.w300,
           color: AppColors.grey,
           fontSize: 14,
         ),
         filled: true,
         fillColor: Colors.transparent,
-        contentPadding: EdgeInsets.all(15),
+        contentPadding: const EdgeInsets.all(15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: AppColors.darkGrey),
+          borderSide: const BorderSide(color: AppColors.darkGrey),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: AppColors.darkGrey),
+          borderSide: const BorderSide(color: AppColors.darkGrey),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Colors.white),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: const BorderSide(color: Colors.red),
         ),
       ),
     );
@@ -240,7 +240,7 @@ class SignUpPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
+          const Text(
             'Do you have an account?',
             style: TextStyle(
               fontWeight: FontWeight.w300,
@@ -255,7 +255,7 @@ class SignUpPage extends StatelessWidget {
                 MaterialPageRoute(builder: (BuildContext context) => SignInPage()),
               );
             },
-            child: Text(
+            child: const Text(
               'Sign in',
               style: TextStyle(
                 fontWeight: FontWeight.w300,

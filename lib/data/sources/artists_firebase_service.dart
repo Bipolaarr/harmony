@@ -33,6 +33,7 @@ class ArtistsFirebaseServiceImplementation implements ArtistsFirebaseService {
 
       } catch (e) {
 
+    // ignore: prefer_const_constructors
     return Left('An error occured, try again');
 
     }

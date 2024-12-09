@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class BasicAppBar extends StatelessWidget{
 
@@ -18,7 +17,7 @@ class BasicAppBar extends StatelessWidget{
             color: Colors.white.withOpacity(0.03),
             shape: BoxShape.circle
           ),
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios_new,
             size: 15,
             color: Colors.white,

@@ -32,7 +32,7 @@ class BasicAppButton extends StatelessWidget{
       onPressed: onPressed, 
       child: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'SF Pro Rounded',
           fontWeight: FontWeight.bold, 
           color: Colors.black, 

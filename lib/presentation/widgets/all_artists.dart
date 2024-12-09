@@ -10,6 +10,8 @@ import 'package:harmony/presentation/pages/playlist_page.dart';
 
 
 class AllArtists extends StatelessWidget{
+  const AllArtists({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class AllArtists extends StatelessWidget{
   Widget _allArtists(List<ArtistEntity> artists) {
   
   return ListView.separated(
-    padding: EdgeInsets.only(left: 15, right: 15),
+    padding: const EdgeInsets.only(left: 15, right: 15),
     scrollDirection: Axis.horizontal,
     itemBuilder: (context, index) {
       String artistUrl = AppUrls.firestorageArtistCovers + 
@@ -74,7 +76,7 @@ class AllArtists extends StatelessWidget{
         highlightColor: AppColors.grey,
         borderRadius: BorderRadius.circular(20),
         child: Padding(
-          padding: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+          padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
           child: SizedBox(
           width: 200,
           child: Column(
@@ -94,7 +96,7 @@ class AllArtists extends StatelessWidget{
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
                   artists[index].name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,

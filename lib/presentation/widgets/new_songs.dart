@@ -22,7 +22,7 @@ class NewSongs extends StatelessWidget{
             if (state is NewSongsLoading) { 
               return Container(
                 alignment: Alignment.center,
-                child: CircularProgressIndicator(
+                child: const CircularProgressIndicator(
                   color: Colors.white,
                 ));
             }
@@ -47,7 +47,7 @@ class NewSongs extends StatelessWidget{
   
   
   return ListView.separated(
-    padding: EdgeInsets.only(left: 15, right: 15),
+    padding: const EdgeInsets.only(left: 15, right: 15),
     scrollDirection: Axis.horizontal,
     itemBuilder: (context, index) {
       String imageUrl = AppUrls.firestorageAlbumCovers + 
@@ -65,7 +65,7 @@ class NewSongs extends StatelessWidget{
         highlightColor: AppColors.grey,
         borderRadius: BorderRadius.circular(20),
         child: Padding(
-          padding: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+          padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
           child: SizedBox(
           width: 200,
           child: Column(
@@ -85,18 +85,18 @@ class NewSongs extends StatelessWidget{
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
                   songs[index].title,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               Text(
                 songs[index].album,
-                style: TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey),
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
                   songs[index].artist,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                 ),
             ],

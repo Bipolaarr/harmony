@@ -22,7 +22,7 @@ class SignInPage extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(AppImages.bluredBackGround),
                 fit: BoxFit.fill
@@ -41,7 +41,7 @@ class SignInPage extends StatelessWidget {
                     color: Colors.black.withOpacity(0.25),
                     spreadRadius: 10,
                     blurRadius: 40,
-                    offset: Offset(0, 0)
+                    offset: const Offset(0, 0)
                   )
                 ]
               ),
@@ -54,16 +54,16 @@ class SignInPage extends StatelessWidget {
                       height: 40,
                        width: 40,
                       ),
-                      SizedBox(height: 60,),
+                      const SizedBox(height: 60,),
                     _signInLabel(),
-                    SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
                     _EmailField(),
-                    SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
                     _PasswordField(),
-                    SizedBox(height: 35,),
+                    const SizedBox(height: 35,),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(400, 55),
+                        minimumSize: const Size(400, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25)
                         )
@@ -80,14 +80,14 @@ class SignInPage extends StatelessWidget {
                             var snackbar = SnackBar(
                               content: Text(
                                 l,
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                                 textAlign: TextAlign.center,
                                 ),
                               // width: 350,
                               backgroundColor: AppColors.darkBackground,
-                              duration: Duration(seconds: 3),
+                              duration: const Duration(seconds: 3),
                               behavior: SnackBarBehavior.floating,
-                              margin: EdgeInsets.only(top: 0, left: 10, right: 10), // Adjust top margin
+                              margin: const EdgeInsets.only(top: 0, left: 10, right: 10), // Adjust top margin
                               shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                               ),
@@ -95,11 +95,11 @@ class SignInPage extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(snackbar);
                           }, 
                           (r){
-                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()), (route) => false);
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => const HomePage()), (route) => false);
                           }
                         );
                       }, 
-                      child: Text(
+                      child: const Text(
                         'Sign in',
                         style: TextStyle(
                         fontFamily: 'SF Pro',
@@ -109,7 +109,7 @@ class SignInPage extends StatelessWidget {
                         ), 
                       )
                     ),
-                    SizedBox(height: 4,),
+                    const SizedBox(height: 4,),
                     _SignUpText(context)
                   ],
                 )
@@ -133,67 +133,69 @@ class SignInPage extends StatelessWidget {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget _EmailField() {
   return TextField(
     controller: _emailController,
     decoration: InputDecoration(
       hintText: 'Email adress',
-      hintStyle: TextStyle(
+      hintStyle: const TextStyle(
         fontWeight: FontWeight.w300, 
         color: AppColors.grey, 
         fontSize: 14
       ),
       filled: true,
       fillColor: Colors.transparent,
-      contentPadding: EdgeInsets.all(15),
+      contentPadding: const EdgeInsets.all(15),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(color: AppColors.darkGrey), // Default border color
+        borderSide: const BorderSide(color: AppColors.darkGrey), // Default border color
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(color: AppColors.darkGrey), // Color when enabled
+        borderSide: const BorderSide(color: AppColors.darkGrey), // Color when enabled
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(color: Colors.white), // Color when focused
+        borderSide: const BorderSide(color: Colors.white), // Color when focused
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(color: Colors.red), // Color when error
+        borderSide: const BorderSide(color: Colors.red), // Color when error
       ),
     ),
   );  
 }
+
 
   Widget _PasswordField() {
     return TextField(
       controller: _passwordController,
       decoration: InputDecoration(
         hintText: 'Password',
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           fontWeight: FontWeight.w300, 
           color: AppColors.grey, 
           fontSize: 14
         ),
         filled: true,
         fillColor: Colors.transparent,
-        contentPadding: EdgeInsets.all(15),
+        contentPadding: const EdgeInsets.all(15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: AppColors.darkGrey), // Default border color
+          borderSide: const BorderSide(color: AppColors.darkGrey), // Default border color
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: AppColors.darkGrey), // Color when enabled
+          borderSide: const BorderSide(color: AppColors.darkGrey), // Color when enabled
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: Colors.white), // Color when focused
+          borderSide: const BorderSide(color: Colors.white), // Color when focused
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
-          borderSide: BorderSide(color: Colors.red), // Color when error
+          borderSide: const BorderSide(color: Colors.red), // Color when error
         ),
       ),
     ); 
@@ -205,7 +207,7 @@ class SignInPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Dont have an account?',
+          const Text('Dont have an account?',
             style: TextStyle(
               fontWeight: FontWeight.w300, 
               color: AppColors.grey, 
@@ -220,7 +222,7 @@ class SignInPage extends StatelessWidget {
                 )
               );
             }, 
-            child: Text('Create here',
+            child: const Text('Create here',
             style: TextStyle(
               fontWeight: FontWeight.w300, 
               color: Colors.white, 

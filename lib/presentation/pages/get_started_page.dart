@@ -7,6 +7,8 @@ import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:harmony/presentation/pages/sign_in_page.dart';
 
 class GetStartedPage extends StatelessWidget{
+  const GetStartedPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +17,11 @@ class GetStartedPage extends StatelessWidget{
       
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 20, 
               horizontal: 40
             ), 
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill, 
                   image: AssetImage(
@@ -30,12 +32,12 @@ class GetStartedPage extends StatelessWidget{
             child: Column(
               children: [
                 SizedBox(
-                  child: SvgPicture.asset(AppVectors.whiteNamedLogo),
                   width: 250,
                   height: 250,
+                  child: SvgPicture.asset(AppVectors.whiteNamedLogo),
                 ),
-                Spacer(),
-                Text(
+                const Spacer(),
+                const Text(
                   'Let the music flow, feel the Harmony.', 
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
@@ -44,8 +46,8 @@ class GetStartedPage extends StatelessWidget{
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 10,),
-                Text(
+                const SizedBox(height: 10,),
+                const Text(
                   '© 2024 All Right Reserved',
                   style: TextStyle(
                     fontWeight: FontWeight.w300, 
@@ -54,7 +56,7 @@ class GetStartedPage extends StatelessWidget{
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 14,),
+                const SizedBox(height: 14,),
                 BasicAppButton(
                   onPressed: () {
                     Navigator.push(
@@ -66,7 +68,7 @@ class GetStartedPage extends StatelessWidget{
                   title: 'Get started',
                     
                 ),
-                SizedBox(height: 14,), 
+                const SizedBox(height: 14,), 
               ],
             )
           ),

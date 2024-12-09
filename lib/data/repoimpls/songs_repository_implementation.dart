@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dartz/dartz.dart';
 import 'package:harmony/data/sources/songs_fb_service.dart';
 import 'package:harmony/domain/repositories/song/song.dart';
@@ -18,12 +20,14 @@ class SongsRepositoryImplementation extends SongsRepository{
 
   }
 
+  @override
   Future<Either> getSongsByArtist(String artist) async {
    
     return await serviceLocator<SongsFirebaseService>().getSongsByArtist(artist);
 
   }
 
+  @override
   Future<Either> getSongsByGenre(String genre) async {
    
     return await serviceLocator<SongsFirebaseService>().getSongsByGenre(genre);
