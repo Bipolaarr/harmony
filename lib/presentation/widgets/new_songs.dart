@@ -67,7 +67,7 @@ class NewSongs extends StatelessWidget{
         child: Padding(
           padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
           child: SizedBox(
-          width: 200,
+          width: 165,
           child: Column(
             children: [
               Expanded(
@@ -105,7 +105,7 @@ class NewSongs extends StatelessWidget{
         )
       );
     },
-    separatorBuilder: (context, index) => const SizedBox(width: 15),
+    separatorBuilder: (context, index) => const SizedBox(width: 10),
     itemCount: songs.length,
   );
 }

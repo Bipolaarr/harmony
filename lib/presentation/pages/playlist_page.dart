@@ -15,7 +15,16 @@ class PlaylistPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.darkBackground,
-        title: Text(title, style: const TextStyle(color: Colors.white)),
+        scrolledUnderElevation: 0,
+        title: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontFamily: 'SF Pro',
+            fontWeight: FontWeight.w700,
+            fontSize: 20
+          )
+        ),
         centerTitle: true,
         leading: IconButton(icon: const Icon(Icons.arrow_back, color: Colors.white), onPressed: () => Navigator.pop(context)),
       ),

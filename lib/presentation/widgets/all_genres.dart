@@ -70,9 +70,9 @@ class AllGenres extends StatelessWidget{
         highlightColor: AppColors.grey,
         borderRadius: BorderRadius.circular(20),
         child: Padding(
-          padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+          padding: const EdgeInsets.only(left: 5, right: 0, top: 5, bottom: 5),
           child: SizedBox(
-          width: 200,
+          width: 350,
           child: Column(
             children: [
               Expanded(
@@ -100,15 +100,18 @@ class AllGenres extends StatelessWidget{
                           ),
                         ),
                         const Spacer(), // This pushes the smaller text to the bottom
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            genres[index].about,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'SF Pro',
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500,
+                        Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(
+                              genres[index].about,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'SF Pro',
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
@@ -124,7 +127,7 @@ class AllGenres extends StatelessWidget{
         )
       );
     },
-    separatorBuilder: (context, index) => const SizedBox(width: 15),
+    separatorBuilder: (context, index) => const SizedBox(width: 20),
     itemCount: genres.length,
   );
 }

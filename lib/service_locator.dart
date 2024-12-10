@@ -102,6 +102,4 @@ Future<void> initDependencies() async {
   serviceLocator.registerSingleton<IsFavouriteUseCase>(
     IsFavouriteUseCase()
   );
-
-
 }

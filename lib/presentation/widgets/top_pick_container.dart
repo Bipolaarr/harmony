@@ -16,7 +16,7 @@ class TopPickContainer extends StatelessWidget {
     return BlocProvider(
       create: (_) => TopPicksBlockCubit()..buildTopPicksBlock(),
       child: SizedBox(
-        height: 280,
+        height: 260,
         child: BlocBuilder<TopPicksBlockCubit, TopPickBlocksState>(
           builder: (context, state) {
             if (state is TopPicksBlockLoading) {
@@ -34,7 +34,7 @@ class TopPickContainer extends StatelessWidget {
 
   Widget _topPicksList(List<List<SongEntity>> pickedSongs) {
     return ListView.separated(
-      padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
+      padding: const EdgeInsets.only(left: 20, right: 15, bottom: 20),
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         String currentIndex = indx[index % indx.length];
@@ -49,8 +49,8 @@ class TopPickContainer extends StatelessWidget {
             );
           },
           child: Container(
-            width: 200,
-            height: 270,
+            width: 165,
+            height: 250,
             child: Column(
               children: [
                 Expanded(
@@ -87,7 +87,7 @@ class TopPickContainer extends StatelessWidget {
           ),
         );
       },
-      separatorBuilder: (context, index) => const SizedBox(width: 15),
+      separatorBuilder: (context, index) => const SizedBox(width: 25),
       itemCount: pickedSongs.length < indx.length ? pickedSongs.length : indx.length,
     );
   }

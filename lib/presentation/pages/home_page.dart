@@ -7,6 +7,7 @@ import 'package:harmony/core/configs/assets/app_vectors.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:harmony/domain/usecases/get_songs_by_artist.dart';
 import 'package:harmony/presentation/pages/playlist_page.dart';
+import 'package:harmony/presentation/pages/profile_page.dart';
 import 'package:harmony/presentation/widgets/all_artists.dart';
 import 'package:harmony/presentation/widgets/all_genres.dart';
 import 'package:harmony/presentation/widgets/new_songs.dart';
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.darkBackground,
@@ -86,6 +88,24 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ),
             const SizedBox(height: 10,),
             TopPickContainer(indx: const ['#1','#2','#3','#4','#5'],),
+            const Padding(
+              padding: EdgeInsets.only(left: 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Your Profile',
+                    style: TextStyle(
+                    fontFamily: "SF Pro", 
+                    fontWeight: FontWeight.w700,
+                    fontSize: 26,
+                    color: Colors.white,
+                  )
+                )
+              ),
+            ),
+            const SizedBox(height: 10,),
+            _homePageWidget(),
+            const SizedBox(height: 40,),
           ],
         ),
       ),
@@ -223,6 +243,60 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       ),
     ],
   );
+}
+
+Widget _homePageWidget() {
+
+  return InkWell(
+    onTap: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProfilePage()),
+        );
+    },
+    highlightColor: AppColors.grey,
+      borderRadius: BorderRadius.circular(20),
+      child: Padding(
+        padding: const EdgeInsets.all(5),
+        child: ClipRRect(
+        borderRadius: BorderRadius.circular(20), // Закругление контейнера
+        child: Container(
+          height: 75,
+          width: 350,
+          decoration: const BoxDecoration(
+            image: const DecorationImage(
+              image: AssetImage(AppImages.topPicksBlockBackground),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 10,),
+                child: Icon(
+                  Icons.account_circle_outlined,
+                  color: Colors.black,
+                  size: 50,
+                ),
+              ),
+              SizedBox(width: 10,),
+              Text(
+                "Welcome",
+                style: TextStyle(
+                  fontFamily: "SF Pro",
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black
+                ),
+                )
+            ],
+          ),
+        ),
+      )
+    ),
+  );
+
 }
 
 }
