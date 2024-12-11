@@ -16,23 +16,35 @@ abstract class AuthFirebaseService {
 }
 
 class AuthFirebaseServiceImplementation extends AuthFirebaseService {
+
   @override
-  Future<Either<String, String>> signin(SigninUserReq request) async {
+  Future<Either<String, Map<String, String>>> signin(SigninUserReq request) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: request.email,
         password: request.password,
       );
-      return const Right('Welcome back!');
+
+      // Fetch user role from Firestore
+      var userDoc = await FirebaseFirestore.instance.collection('Users').doc(userCredential.user?.uid).get();
+      
+      if (!userDoc.exists) {
+        return Left('User not found');
+      }
+
+      // Return a map with the welcome message and the user's role
+      String role = userDoc['role']; // Default to 'user' if role is not found
+      return Right({'message': 'Welcome back!', 'role': role});
+      
     } on FirebaseAuthException catch (e) {
       String msg = '';
       switch (e.code) {
         case 'invalid-credential':
           msg = 'Wrong password provided for this user';
-          break; 
+          break;
         case 'invalid-email':
           msg = 'User with this email has not been found';
-          break; 
+          break;
         case 'too-many-requests':
           msg = 'Too many requests. Try later';
           break;
@@ -51,10 +63,12 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         password: request.password,
       );
 
+      // Set user data in Firestore including the role
       await FirebaseFirestore.instance.collection('Users').doc(data.user?.uid).set({
         'username': request.username,
         'email': data.user?.email,
-        'password': request.password, 
+        'role': 'user', // Assign role automatically
+        // Optionally, you can add other fields like imageURL here
       });
 
       return const Right('Account has been successfully created');
@@ -62,19 +76,19 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
       String msg = '';
       switch (e.code) {
         case 'email-already-in-use':
-          msg = 'This email is already in use. Try to login or reset your password';
+          msg = 'This email is already in use. Try to login or reset your password.';
           break; 
         case 'invalid-email':
-          msg = 'This email is unavailable to use';
+          msg = 'This email is unavailable to use.';
           break; 
         case 'weak-password':
-          msg = 'This password is too weak (should be at least 8 characters)';
+          msg = 'This password is too weak (should be at least 8 characters).';
           break; 
         case 'too-many-requests':
-          msg = 'Too many requests. Try later';
+          msg = 'Too many requests. Try later.';
           break; 
         default:
-          msg = 'An unknown error occurred';
+          msg = 'An unknown error occurred.';
       }
       return Left(msg);
     }

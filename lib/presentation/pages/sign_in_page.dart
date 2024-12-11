@@ -5,6 +5,7 @@ import 'package:harmony/core/configs/assets/app_vectors.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:harmony/data/models/signin_user_req.dart';
 import 'package:harmony/domain/usecases/signin.dart';
+import 'package:harmony/presentation/pages/admin_page.dart';
 import 'package:harmony/presentation/pages/home_page.dart';
 import 'package:harmony/presentation/pages/sign_up_page.dart';
 import 'package:harmony/service_locator.dart';
@@ -94,8 +95,12 @@ class SignInPage extends StatelessWidget {
                             );
                             ScaffoldMessenger.of(context).showSnackBar(snackbar);
                           }, 
-                          (r){
-                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => const HomePage()), (route) => false);
+                          (data){
+
+                            String userRole = data['role'].toString();
+                            if(userRole == 'admin') Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => const AdminPage()), (route) => false);
+                            else Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => const HomePage()), (route) => false);
+
                           }
                         );
                       }, 

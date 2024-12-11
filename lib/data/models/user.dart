@@ -6,11 +6,13 @@ class UserModel {
   String ? username; 
   String ? email; 
   String ? imageURL;
+  String role = 'user';
 
   UserModel({
     this.username,
     this.email,
     this.imageURL,
+    required this.role
   });
 
   UserModel.fromJson(Map<String,dynamic> data) {
@@ -18,6 +20,7 @@ class UserModel {
     username = data['username'];
     email = data['email'];
     imageURL = data['imageURL'];
+    role = 'user';
     
   }
   
@@ -28,9 +31,10 @@ extension UserModelX on UserModel {
     return UserEntity(
       email: email,
       username: username,
-      imageURL: imageURL
+      imageURL: imageURL,
+      role: role
     );
-    
+
   }
 
 }

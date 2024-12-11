@@ -77,7 +77,7 @@ class TopPickContainer extends StatelessWidget {
                               alignment: Alignment.center,
                               child: Text(
                                 '${pickedSongs[index][0].artist}, ${pickedSongs[index][1].artist}, ${pickedSongs[index][2].artist}, and others',
-                                style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w500),
+                                style: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
