@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harmony/common/widgets/basic_app_button.dart';
 import 'package:harmony/core/configs/assets/app_images.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
+import 'package:harmony/presentation/bloc/all_songs_cubit.dart';
+import 'package:harmony/presentation/bloc/all_songs_state.dart';
 import 'package:harmony/presentation/bloc/all_users_cubit.dart';
 import 'package:harmony/presentation/bloc/all_users_state.dart';
 import 'package:harmony/presentation/bloc/profile_info_cubit.dart';
@@ -30,12 +32,6 @@ class AdminPage extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert, color: Colors.black),
-          ),
-        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,7 +42,7 @@ class AdminPage extends StatelessWidget {
               padding: EdgeInsets.only(left: 10),
               child: Row(
                 children: [
-                  Icon(Icons.assignment_ind_rounded, size: 40,),
+                  Icon(Icons.assignment_ind_rounded, size: 45,),
                   const SizedBox(width: 5),
                   Text(
                     'Users',
@@ -67,7 +63,7 @@ class AdminPage extends StatelessWidget {
               padding: EdgeInsets.only(left: 10),
               child: Row(
                 children: [
-                  Icon(Icons.library_music_rounded, size: 40,),
+                  Icon(Icons.library_music_rounded, size: 45,),
                   const SizedBox(width: 5),
                   Text(
                     'Songs',
@@ -82,7 +78,7 @@ class AdminPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Expanded(child: _allUsers()),
+            Expanded(child: _allSongs()),
             const SizedBox(height: 20),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
@@ -199,94 +195,179 @@ class AdminPage extends StatelessWidget {
     }
 
   Widget _allUsers() {
-  return BlocProvider(
-    create: (context) => AllUsersCubit()..getAllUsers(),
-    child: Padding(
-      padding: const EdgeInsets.only(left: 15),
-      child: BlocBuilder<AllUsersCubit, AllUsersState>(
-        builder: (context, state) {
-          if (state is AllUsersLoading) {
-            return const Center(child: CircularProgressIndicator(color: Colors.white));
-          }
-          if (state is AllUsersLoaded) {
-            return ListView.builder(
-              itemCount: state.allUsers.length, 
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    // Optional: Add tap action here if needed
-                  },
-                  child: Container(
-                    height: 60,
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(color: AppColors.darkBackground, width: 1),
+    return BlocProvider(
+      create: (context) => AllUsersCubit()..getAllUsers(),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15),
+        child: BlocBuilder<AllUsersCubit, AllUsersState>(
+          builder: (context, state) {
+            if (state is AllUsersLoading) {
+              return const Center(child: CircularProgressIndicator(color: Colors.white));
+            }
+            if (state is AllUsersLoaded) {
+              return ListView.builder(
+                itemCount: state.allUsers.length, 
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      // Optional: Add tap action here if needed
+                    },
+                    child: Container(
+                      height: 70,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(color: AppColors.darkBackground, width: 1),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.assignment_ind_rounded, size: 35),
+                          const SizedBox(width: 15),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.allUsers[index].username ?? 'Unknown', // Display username
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  state.allUsers[index].email ?? 'Unknown', // Display email
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                // Add buttons to block or delete the user
+                              ],
+                            ),
+                          ),
+                          if (state.allUsers[index].role != 'admin')
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () async {
+                                  // Implement block user functionality
+                                  // e.g., await context.read<AuthFirebaseService>().blockUser(state.allUsers[index].id);
+                                },
+                                icon: Icon(Icons.block_rounded),
+                              ),
+                              IconButton(
+                                onPressed: () async {
+                                  // Implement block user functionality
+                                  // e.g., await context.read<AuthFirebaseService>().blockUser(state.allUsers[index].id);
+                                },
+                                icon: Icon(Icons.delete),
+                              ),
+                            ],
+                          ), 
+                        ],
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.assignment_ind_rounded, size: 30),
-                        const SizedBox(width: 15),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                state.allUsers[index].username ?? 'Unknown', // Display username
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(
-                                state.allUsers[index].email ?? 'Unknown', // Display email
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              // Add buttons to block or delete the user
-                            ],
-                          ),
-                        ),
-                         if (state.allUsers[index].role != 'admin')
-                         Row(
-                          children: [
-                            IconButton(
-                              onPressed: () async {
-                                // Implement block user functionality
-                                // e.g., await context.read<AuthFirebaseService>().blockUser(state.allUsers[index].id);
-                              },
-                              icon: Icon(Icons.block_rounded),
-                            ),
-                            IconButton(
-                              onPressed: () async {
-                                // Implement block user functionality
-                                // e.g., await context.read<AuthFirebaseService>().blockUser(state.allUsers[index].id);
-                              },
-                              icon: Icon(Icons.delete),
-                            ),
-                          ],
-                        ), 
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          }
-          if (state is AllUsersLoadingFailed) {
-            return const Center(child: Text('Failed to load users. Please try again.', style: TextStyle(color: Colors.white)));
-          }
-          return Container(); // Return an empty container for unhandled states
-        },
+                  );
+                },
+              );
+            }
+            if (state is AllUsersLoadingFailed) {
+              return const Center(child: Text('Failed to load users. Please try again.', style: TextStyle(color: Colors.white)));
+            }
+            return Container(); // Return an empty container for unhandled states
+          },
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
+
+  Widget _allSongs() {
+    return BlocProvider(
+      create: (context) => AllSongsCubit()..getAllSongs(),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15),
+        child: BlocBuilder<AllSongsCubit, AllSongsState>(
+          builder: (context, state) {
+            if (state is AllSongsLoading) {
+              return const Center(child: CircularProgressIndicator(color: Colors.white));
+            }
+            if (state is AllSongsLoaded) {
+              print(state.allSongs.toString());
+              return ListView.builder(
+                itemCount: state.allSongs.length, 
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      // Optional: Add tap action here if needed
+                    },
+                    child: Container(
+                      height: 70,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(color: AppColors.darkBackground, width: 1),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.library_music_rounded, size: 35),
+                          const SizedBox(width: 15),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.allSongs[index].title , // Display username
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  state.allSongs[index].artist , // Display email
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                // Add buttons to block or delete the user
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () async {
+                                  // Implement block user functionality
+                                  // e.g., await context.read<AuthFirebaseService>().blockUser(state.allUsers[index].id);
+                                },
+                                icon: Icon(Icons.delete),
+                              ),
+                            ],
+                          ), 
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            }
+            if (state is AllSongsLoadingFailed) {
+              return const Center(child: Text('Failed to load users. Please try again.', style: TextStyle(color: Colors.white)));
+            }
+            return Container(); // Return an empty container for unhandled states
+          },
+        ),
+      ),
+    );
+  }
 }

@@ -30,6 +30,12 @@ class PlaylistPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.more_vert, color: Colors.white),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 5), // Adjust padding as needed

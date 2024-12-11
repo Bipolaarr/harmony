@@ -18,7 +18,7 @@ abstract class SongsRepository {
 
   Future <Either> getUserFavouriteSongs();
 
-  // Future <Either> getAllSongs();
+  Future <Either> getAllSongs();
 
   // Future <void> deleteSong();
 

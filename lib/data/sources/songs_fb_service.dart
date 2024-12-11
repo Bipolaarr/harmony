@@ -26,6 +26,8 @@ abstract class SongsFirebaseService {
 
   Future<Either> getUserFavouriteSongs();
 
+  Future<Either> getAllSongs();
+
 }
 
 class SongsFirebaseServiceImplementation implements SongsFirebaseService {
@@ -241,6 +243,33 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
         'An error occurred'
       );
     }
+  }
+  
+  @override
+  Future<Either> getAllSongs() async {
+    
+    try { 
+
+        List<SongEntity> allSongs = [];
+        
+        var data = await FirebaseFirestore.instance.collection('Songs').get();    
+
+        for(var element in data.docs) {
+          var songModel = SongModel.fromJson(element.data());
+          bool isFavourite = await serviceLocator<IsFavouriteUseCase>().call(params: element.reference.id);
+          songModel.isFavourite = isFavourite;
+          songModel.songId = element.reference.id;
+          allSongs.add(songModel.toEntity());
+        }
+
+        return Right(allSongs);
+
+      } catch (e) {
+
+    return const Left('An error occured, try again');
+
+    }
+
   }
 
 }
