@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:harmony/core/configs/assets/app_images.dart';
 import 'package:harmony/data/models/create_user_req.dart';
 import 'package:harmony/data/models/signin_user_req.dart';
+import 'package:harmony/data/models/user.dart';
+import 'package:harmony/domain/entities/user/user.dart';
 
 abstract class AuthFirebaseService {
-  Future<Either<String, String>> signin(SigninUserReq request);
-  Future<Either<String, String>> signup(CreateUserReq request);
-  Future<Either<String, String>> getCurrentUsername();
+  Future<Either> signin(SigninUserReq request);
+  Future<Either> signup(CreateUserReq request);
+  Future<Either> getUser();
 }
 
 class AuthFirebaseServiceImplementation extends AuthFirebaseService {
@@ -39,7 +42,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
   }
 
   @override
-  Future<Either<String, String>> signup(CreateUserReq request) async {
+  Future<Either> signup(CreateUserReq request) async {
     try {
       var data = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: request.email,
@@ -74,34 +77,38 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
       return Left(msg);
     }
   }
-
-  @override
-  Future<Either<String, String>> getCurrentUsername() async {
-    try {
-      User? currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser == null) {
-        return Left('No user is currently signed in.');
-      }
-
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('Users')
-          .doc(currentUser.uid)
-          .get();
-
-      if (userDoc.exists) {
-        Map<String, dynamic>? data = userDoc.data() as Map<String, dynamic>?;
-        if (data != null && data.containsKey('username')) {
-          String username = data['username'];
-          return Right(username);
-        } else {
-          return Left('Username field does not exist.');
-        }
-      } else {
-        return Left('User document does not exist.');
-      }
-    } catch (e) {
-      return Left('An error occurred: $e');
-    }
-  }
   
+  @override
+Future<Either> getUser() async {
+  try {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+    // Get the current user's UID
+    String? uid = firebaseAuth.currentUser?.uid;
+
+    // Check if UID is null
+    if (uid == null) {
+      return const Left('No user is currently signed in');
+    }
+
+    // Fetch user data from Firestore
+    var userDoc = await firebaseFirestore.collection('Users').doc(uid).get();
+
+    // Check if the document exists
+    if (!userDoc.exists) {
+      return const Left('User not found');
+    }
+
+    // Safely access the user data
+    UserModel userModel = UserModel.fromJson(userDoc.data()!);
+    userModel.imageURL = firebaseAuth.currentUser?.photoURL ?? AppImages.defaultImage;
+
+    UserEntity userEntity = userModel.toEntity();
+    return Right(userEntity);
+  } on Exception catch (e) {
+    return Left('An error occurred: ${e.toString()}');
+  }
+}
+
 }

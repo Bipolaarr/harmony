@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
+        toolbarHeight: 70,
         title: SvgPicture.asset(
           AppVectors.whiteNamedLogo,
           height: 40,
@@ -105,7 +106,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ),
             const SizedBox(height: 10,),
             _homePageWidget(),
-            const SizedBox(height: 40,),
+            const SizedBox(height: 30,),
           ],
         ),
       ),
@@ -183,7 +184,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   child: Image(
                     image: AssetImage(AppImages.recBannerImage),
                     height: 175,
-                    width: 175, 
+                    width: 165, 
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -270,26 +271,27 @@ Widget _homePageWidget() {
             ),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 10,),
+                padding: EdgeInsets.only(left: 8,),
                 child: Icon(
                   Icons.account_circle_outlined,
                   color: Colors.black,
-                  size: 50,
+                  size: 60,
                 ),
               ),
-              SizedBox(width: 10,),
-              Text(
-                "Welcome",
-                style: TextStyle(
-                  fontFamily: "SF Pro",
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black
-                ),
-                )
+              // SizedBox(width: 5,),
+              // Text(
+              //   "Uncover My Essence",
+              //   textAlign: TextAlign.center,
+              //   style: TextStyle(
+              //     fontFamily: "SF Pro",
+              //     fontSize: 26,
+              //     fontWeight: FontWeight.w700,
+              //     color: Colors.black
+              //   ),
+              //   )
             ],
           ),
         ),

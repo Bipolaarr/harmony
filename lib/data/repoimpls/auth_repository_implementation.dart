@@ -18,5 +18,10 @@ class AuthRepositoryImplementation extends AuthRepository {
     return await serviceLocator<AuthFirebaseService>().signup(request);
 
   }
+  
+  @override
+  Future<Either> getUser() async {
+    return await serviceLocator<AuthFirebaseService>().getUser();
+  }
 
 }

@@ -8,4 +8,6 @@ abstract class AuthRepository {
 
   Future <Either> signin(SigninUserReq request);
 
+  Future <Either> getUser();
+
 }

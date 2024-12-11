@@ -102,7 +102,7 @@ class SignUpPage extends StatelessWidget {
                         );
                       },
                       child: const Text(
-                        'Sign up',
+                        'Sign Up',
                         style: TextStyle(
                           fontFamily: 'SF Pro',
                           fontWeight: FontWeight.w900,
@@ -125,7 +125,7 @@ class SignUpPage extends StatelessWidget {
 
   Widget _registerLabel() {
     return const Text(
-      'Create account',
+      'Create Account',
       style: TextStyle(
         fontFamily: 'SF Pro',
         fontWeight: FontWeight.w900,
@@ -172,7 +172,7 @@ class SignUpPage extends StatelessWidget {
     return TextField(
       controller: _emailController,
       decoration: InputDecoration(
-        hintText: 'Email address',
+        hintText: 'Email Address',
         hintStyle: const TextStyle(
           fontWeight: FontWeight.w300,
           color: AppColors.grey,

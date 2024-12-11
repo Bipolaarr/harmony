@@ -22,17 +22,23 @@ class PlaylistPage extends StatelessWidget {
             color: Colors.white,
             fontFamily: 'SF Pro',
             fontWeight: FontWeight.w700,
-            fontSize: 20
-          )
+            fontSize: 20,
+          ),
         ),
         centerTitle: true,
-        leading: IconButton(icon: const Icon(Icons.arrow_back, color: Colors.white), onPressed: () => Navigator.pop(context)),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
-      body: ListView.builder(
-        itemCount: songs.length,
-        itemBuilder: (context, index) {
-          return _elementContainer(context, songs[index], index);
-        },
+      body: Padding(
+        padding: const EdgeInsets.only(left: 15, right: 10), 
+        child: ListView.builder(
+          itemCount: songs.length,
+          itemBuilder: (context, index) {
+            return _elementContainer(context, songs[index], index);
+          },
+        ),
       ),
     );
   }
@@ -42,12 +48,16 @@ class PlaylistPage extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SongPlayerPage(songs: songs, index: index)),
+          MaterialPageRoute(
+            builder: (context) => SongPlayerPage(songs: songs, index: index),
+          ),
         );
       },
       child: Container(
         height: 70,
-        decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: AppColors.darkBackground, width: 1))),
+        decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(color: AppColors.darkBackground, width: 1)),
+        ),
         child: Row(
           children: [
             // Cover image
@@ -56,7 +66,10 @@ class PlaylistPage extends StatelessWidget {
               width: 60,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(song.coverImageUrl)),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(song.coverImageUrl),
+                ),
               ),
             ),
             const SizedBox(width: 20),
@@ -66,8 +79,16 @@ class PlaylistPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(song.title, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700), overflow: TextOverflow.ellipsis),
-                  Text(song.artist, style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w400), overflow: TextOverflow.ellipsis),
+                  Text(
+                    song.title,
+                    style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    song.artist,
+                    style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w400),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),

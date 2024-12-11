@@ -65,7 +65,7 @@ class GetStartedPage extends StatelessWidget{
                       )
                     );
                   }, //relace with sign in 
-                  title: 'Get started',
+                  title: 'Get Started',
                     
                 ),
                 const SizedBox(height: 14,), 

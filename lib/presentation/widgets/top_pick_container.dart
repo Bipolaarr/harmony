@@ -48,46 +48,50 @@ class TopPickContainer extends StatelessWidget {
               ),
             );
           },
-          child: Container(
-            width: 165,
-            height: 250,
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.black,
-                      image: const DecorationImage(
-                        image: AssetImage(AppImages.topPicksBlockBackground),
-                        fit: BoxFit.cover,
+          borderRadius: BorderRadius.circular(20),
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: Container(
+              width: 160,
+              height: 250,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.black,
+                        image: const DecorationImage(
+                          image: AssetImage(AppImages.topPicksBlockBackground),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(currentIndex, style: const TextStyle(color: Colors.black, fontSize: 40, fontWeight: FontWeight.w700)),
-                          const Spacer(),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '${pickedSongs[index][0].artist}, ${pickedSongs[index][1].artist}, ${pickedSongs[index][2].artist}, and others',
-                              style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w400),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(currentIndex, style: const TextStyle(color: Colors.black, fontSize: 40, fontWeight: FontWeight.w700)),
+                            const Spacer(),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                '${pickedSongs[index][0].artist}, ${pickedSongs[index][1].artist}, ${pickedSongs[index][2].artist}, and others',
+                                style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w500),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          )
         );
       },
-      separatorBuilder: (context, index) => const SizedBox(width: 25),
+      separatorBuilder: (context, index) => const SizedBox(width: 15),
       itemCount: pickedSongs.length < indx.length ? pickedSongs.length : indx.length,
     );
   }

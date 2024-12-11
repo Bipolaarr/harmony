@@ -100,7 +100,7 @@ class SignInPage extends StatelessWidget {
                         );
                       }, 
                       child: const Text(
-                        'Sign in',
+                        'Sign In',
                         style: TextStyle(
                         fontFamily: 'SF Pro',
                         fontWeight: FontWeight.w900, 
@@ -123,7 +123,7 @@ class SignInPage extends StatelessWidget {
 
   Widget _signInLabel() {
     return const Text(
-      'Welcome back', 
+      'Welcome Back', 
       style: TextStyle(
         fontFamily: 'SF Pro',
         fontWeight: FontWeight.w900,
@@ -138,7 +138,7 @@ class SignInPage extends StatelessWidget {
   return TextField(
     controller: _emailController,
     decoration: InputDecoration(
-      hintText: 'Email adress',
+      hintText: 'Email Adress',
       hintStyle: const TextStyle(
         fontWeight: FontWeight.w300, 
         color: AppColors.grey, 
