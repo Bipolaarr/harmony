@@ -7,6 +7,7 @@ import 'package:harmony/presentation/bloc/favourite_songs_state.dart';
 import 'package:harmony/presentation/bloc/profile_info_cubit.dart';
 import 'package:harmony/presentation/bloc/profile_info_state.dart';
 import 'package:harmony/presentation/pages/song_player_page.dart';
+import 'package:harmony/presentation/pages/update_profile.dart';
 import 'package:harmony/presentation/widgets/favourite_button.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -54,7 +55,14 @@ class ProfilePage extends StatelessWidget {
 
   Widget _profileInfo(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UpdateProfilePage(),
+          ),
+        );
+      },
       borderRadius: BorderRadius.only(
         bottomLeft: Radius.circular(40),
         bottomRight: Radius.circular(40),

@@ -23,6 +23,7 @@ import 'package:harmony/domain/usecases/get_user_favourites.dart';
 import 'package:harmony/domain/usecases/is_favourite.dart';
 import 'package:harmony/domain/usecases/signin.dart';
 import 'package:harmony/domain/usecases/signup.dart';
+import 'package:harmony/domain/usecases/update_user.dart';
 
 final serviceLocator = GetIt.instance; 
 
@@ -111,5 +112,9 @@ Future<void> initDependencies() async {
 
   serviceLocator.registerSingleton<GetUserFavouriteSongsUseCase>(
     GetUserFavouriteSongsUseCase()
+  );
+
+  serviceLocator.registerSingleton<UpdateUserUseCase>(
+    UpdateUserUseCase()
   );
 }

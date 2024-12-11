@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:harmony/domain/entities/song/song.dart';
 import 'package:harmony/presentation/bloc/favourite_button_cubit.dart';
 import 'package:harmony/presentation/bloc/favourite_button_state.dart';
