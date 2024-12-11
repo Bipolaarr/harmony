@@ -103,9 +103,9 @@ class SignInPage extends StatelessWidget {
                         'Sign In',
                         style: TextStyle(
                         fontFamily: 'SF Pro',
-                        fontWeight: FontWeight.w900, 
+                        fontWeight: FontWeight.w700, 
                         color: Colors.black, 
-                        fontSize: 22
+                        fontSize: 24
                         ), 
                       )
                     ),
@@ -126,9 +126,9 @@ class SignInPage extends StatelessWidget {
       'Welcome Back', 
       style: TextStyle(
         fontFamily: 'SF Pro',
-        fontWeight: FontWeight.w900,
+        fontWeight: FontWeight.w700,
         color: Colors.white, 
-        fontSize: 22, 
+        fontSize: 24, 
       )
     );
   }

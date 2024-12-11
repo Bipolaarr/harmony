@@ -53,7 +53,7 @@ class SignUpPage extends StatelessWidget {
                       height: 40,
                       width: 40,
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 35),
                     _registerLabel(),
                     const SizedBox(height: 15),
                     _emailField(),
@@ -105,9 +105,9 @@ class SignUpPage extends StatelessWidget {
                         'Sign Up',
                         style: TextStyle(
                           fontFamily: 'SF Pro',
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w700,
                           color: Colors.black,
-                          fontSize: 22,
+                          fontSize: 24,
                         ),
                       ),
                     ),
@@ -128,9 +128,9 @@ class SignUpPage extends StatelessWidget {
       'Create Account',
       style: TextStyle(
         fontFamily: 'SF Pro',
-        fontWeight: FontWeight.w900,
+        fontWeight: FontWeight.w700,
         color: Colors.white,
-        fontSize: 22,
+        fontSize: 24,
       ),
     );
   }

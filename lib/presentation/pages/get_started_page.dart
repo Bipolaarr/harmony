@@ -61,7 +61,7 @@ class GetStartedPage extends StatelessWidget{
                   onPressed: () {
                     Navigator.push(
                       context, 
-                      MaterialPageRoute(builder: (BuildContext context) => SignInPage()  
+                      MaterialPageRoute(builder: (BuildContext context) => SignInPage(), 
                       )
                     );
                   }, //relace with sign in 

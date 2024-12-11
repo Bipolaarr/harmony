@@ -54,99 +54,105 @@ class UpdateProfilePage extends StatelessWidget {
             ),
           ),
           Center(
-            child: Container(
-              height: 520,
-              width: 350,
-              decoration: BoxDecoration(
-                color: AppColors.darkBackground,
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    spreadRadius: 10,
-                    blurRadius: 40,
-                    offset: const Offset(0, 0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [ // Move the container up by 30 pixels
+                Container(
+                  height: 520,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: AppColors.darkBackground,
+                    borderRadius: BorderRadius.circular(40),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.25),
+                        spreadRadius: 10,
+                        blurRadius: 40,
+                        offset: const Offset(0, 0),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              padding: const EdgeInsets.all(20),
-              child: Center(
-                child: Column(
-                  children: [
-                    const Icon(
-                      Icons.account_circle_rounded,
-                      color: Colors.white,
-                      size: 60,
-                    ),
-                    const SizedBox(height: 10),
-                    _registerLabel(),
-                    const SizedBox(height: 15),
-                    _emailField(),
-                    const SizedBox(height: 15),
-                    _usernameField(),
-                    const SizedBox(height: 15),
-                    _passwordField(),
-                    const SizedBox(height: 15),
-                    _passwordCheckField(),
-                    const SizedBox(height: 35),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(400, 55),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+                  padding: const EdgeInsets.all(20),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        const Icon(
+                          Icons.account_circle_rounded,
+                          color: Colors.white,
+                          size: 60,
                         ),
-                      ),
-                      onPressed: () async {
-                        var result = await serviceLocator<UpdateUserUseCase>().call(
-                          params: UpdateUserReq(
-                            username: _usernameController.text.isNotEmpty ? _usernameController.text : null,
-                            email: _emailController.text.isNotEmpty ? _emailController.text : null,
-                            newPassword: _newPasswordController.text.isNotEmpty ? _newPasswordController.text : null,
-                            currentPassword: _currentPasswordController.text,
+                        const SizedBox(height: 10),
+                        _registerLabel(),
+                        const SizedBox(height: 15),
+                        _emailField(),
+                        const SizedBox(height: 15),
+                        _usernameField(),
+                        const SizedBox(height: 15),
+                        _passwordField(),
+                        const SizedBox(height: 15),
+                        _passwordCheckField(),
+                        const SizedBox(height: 35),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(400, 55),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
                           ),
-                        );
+                          onPressed: () async {
+                            var result = await serviceLocator<UpdateUserUseCase>().call(
+                              params: UpdateUserReq(
+                                username: _usernameController.text.isNotEmpty ? _usernameController.text : null,
+                                email: _emailController.text.isNotEmpty ? _emailController.text : null,
+                                newPassword: _newPasswordController.text.isNotEmpty ? _newPasswordController.text : null,
+                                currentPassword: _currentPasswordController.text,
+                              ),
+                            );
 
-                        result.fold(
-                          (error) {
-                            var snackbar = SnackBar(
-                              content: Text(
-                                error,
-                                style: const TextStyle(color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                              backgroundColor: AppColors.darkBackground,
-                              duration: const Duration(seconds: 3),
-                              behavior: SnackBarBehavior.floating,
-                              margin: const EdgeInsets.only(top: 0, left: 10, right: 10),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
+                            result.fold(
+                              (error) {
+                                var snackbar = SnackBar(
+                                  content: Text(
+                                    error,
+                                    style: const TextStyle(color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  backgroundColor: AppColors.darkBackground,
+                                  duration: const Duration(seconds: 3),
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: const EdgeInsets.only(top: 0, left: 10, right: 10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                              },
+                              (successMessage) {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(builder: (BuildContext context) => SignInPage()),
+                                  (route) => false,
+                                );
+                              },
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(snackbar);
                           },
-                          (successMessage) {
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(builder: (BuildContext context) => SignInPage()),
-                              (route) => false,
-                            );
-                          },
-                        );
-                      },
-                      child: const Text(
-                        'Update Profile',
-                        style: TextStyle(
-                          fontFamily: 'SF Pro',
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,
-                          fontSize: 22,
+                          child: const Text(
+                            'Update Profile',
+                            style: TextStyle(
+                              fontFamily: 'SF Pro',
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                              fontSize: 22,
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 4),
+                      ],
                     ),
-                    const SizedBox(height: 4),
-                  ],
+                  ),
                 ),
-              ),
+                const SizedBox(height: 50),
+              ],
             ),
           ),
         ],
