@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 254, 254, 254),
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
         centerTitle: true,
         toolbarHeight: 30,
@@ -153,7 +153,6 @@ class ProfilePage extends StatelessWidget {
                         ),
                     ),
                     ),
-                    const SizedBox(height: 14),
                 ],
                 );
             }
