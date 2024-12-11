@@ -13,6 +13,7 @@ abstract class AuthFirebaseService {
   Future<Either> signup(CreateUserReq request);
   Future<Either> getUser();
   Future<Either<String, String>> updateUser(UpdateUserReq request);
+  Future<Either<String, List<UserEntity>>> getAllUsers();
 }
 
 class AuthFirebaseServiceImplementation extends AuthFirebaseService {
@@ -25,15 +26,13 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         password: request.password,
       );
 
-      // Fetch user role from Firestore
       var userDoc = await FirebaseFirestore.instance.collection('Users').doc(userCredential.user?.uid).get();
       
       if (!userDoc.exists) {
         return Left('User not found');
       }
 
-      // Return a map with the welcome message and the user's role
-      String role = userDoc['role']; // Default to 'user' if role is not found
+      String role = userDoc['role'];
       return Right({'message': 'Welcome back!', 'role': role});
       
     } on FirebaseAuthException catch (e) {
@@ -186,4 +185,29 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
       return Left('An error occurred: ${e.toString()}');
     }
   }
+  
+  @override
+  Future<Either<String, List<UserEntity>>> getAllUsers() async {
+    try {
+      var usersList = FirebaseFirestore.instance.collection('Users');
+      var snapshot = await usersList.get();
+
+      if (snapshot.docs.isEmpty) {
+        return Left('No users found');
+      }
+
+      // Convert to List<UserEntity> directly
+      List<UserEntity> users = snapshot.docs.map((doc) {
+        // Create UserModel from JSON
+        UserModel userModel = UserModel.fromJson(doc.data() as Map<String, dynamic>);
+        // Convert UserModel to UserEntity
+        return userModel.toEntity();
+      }).toList();
+
+      return Right(users);
+    } catch (e) {
+      return Left('An error occurred: ${e.toString()}');
+    }
+  }
+
 }

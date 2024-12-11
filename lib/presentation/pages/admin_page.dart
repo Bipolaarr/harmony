@@ -3,14 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harmony/common/widgets/basic_app_button.dart';
 import 'package:harmony/core/configs/assets/app_images.dart';
 import 'package:harmony/core/configs/theme/app_colors.dart';
-import 'package:harmony/presentation/bloc/favourite_songs_cubit.dart';
-import 'package:harmony/presentation/bloc/favourite_songs_state.dart';
+import 'package:harmony/presentation/bloc/all_users_cubit.dart';
+import 'package:harmony/presentation/bloc/all_users_state.dart';
 import 'package:harmony/presentation/bloc/profile_info_cubit.dart';
 import 'package:harmony/presentation/bloc/profile_info_state.dart';
 import 'package:harmony/presentation/pages/get_started_page.dart';
-import 'package:harmony/presentation/pages/song_player_page.dart';
 import 'package:harmony/presentation/pages/update_profile.dart';
-import 'package:harmony/presentation/widgets/favourite_button.dart';
 
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});
@@ -19,7 +17,7 @@ class AdminPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 254, 254, 254),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
         centerTitle: true,
         toolbarHeight: 30,
@@ -32,12 +30,6 @@ class AdminPage extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context); // Just pop the current route
-          },
-        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -49,8 +41,48 @@ class AdminPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
             _profileInfo(context),
-            const SizedBox(height: 0),
-            Expanded(child: _favouriteSongs()),
+            const SizedBox(height: 10),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Icon(Icons.assignment_ind_rounded, size: 40,),
+                  const SizedBox(width: 5),
+                  Text(
+                    'Users',
+                    style: TextStyle(
+                      fontFamily: "SF Pro",
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white
+                    ),
+                  )
+                ],
+              ),
+            ),              
+            const SizedBox(height: 10),
+            Expanded(child: _allUsers()),
+            const SizedBox(height: 10),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Icon(Icons.library_music_rounded, size: 40,),
+                  const SizedBox(width: 5),
+                  Text(
+                    'Songs',
+                    style: TextStyle(
+                      fontFamily: "SF Pro",
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            Expanded(child: _allUsers()),
             const SizedBox(height: 20),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
@@ -60,9 +92,9 @@ class AdminPage extends StatelessWidget {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(builder: (context) => GetStartedPage()),
-                          (route) => false, // This will clear all previous routes
+                          (route) => false, 
                         );
-                    }, //relace with sign in 
+                    }, 
                     title: 'Log Out', 
                     ),
             ),
@@ -153,7 +185,6 @@ class AdminPage extends StatelessWidget {
                         ),
                     ),
                     ),
-                    const SizedBox(height: 14),
                 ],
                 );
             }
@@ -167,101 +198,95 @@ class AdminPage extends StatelessWidget {
     );
     }
 
-  Widget _favouriteSongs() {
-    return BlocProvider(
-      create: (context) => FavouriteSongsCubit()..getFavoriteSongs(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: BlocBuilder<FavouriteSongsCubit, FavouriteSongsState>(
-          builder: (context, state) {
-            if (state is FavouriteSongsLoading) {
-              return const Center(child: CircularProgressIndicator(color: Colors.white));
-            }
-            if (state is FavouriteSongsLoaded) {
-              return ListView.builder(
-                itemCount: state.favouriteSongs.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SongPlayerPage(
-                            songs: state.favouriteSongs,
-                            index: index,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      height: 75,
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: AppColors.darkBackground, width: 1),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(state.favouriteSongs[index].coverImageUrl),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  state.favouriteSongs[index].title,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  state.favouriteSongs[index].artist,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                            ),
-                            FavouriteButton(
-                                        song: state.favouriteSongs[index],
-                                        key: UniqueKey(),
-                                        size: 35,
-                                        function: (){
-                                        context.read<FavouriteSongsCubit>().removeSong(index);
-                                        },
-                            )
-                        ],
+  Widget _allUsers() {
+  return BlocProvider(
+    create: (context) => AllUsersCubit()..getAllUsers(),
+    child: Padding(
+      padding: const EdgeInsets.only(left: 15),
+      child: BlocBuilder<AllUsersCubit, AllUsersState>(
+        builder: (context, state) {
+          if (state is AllUsersLoading) {
+            return const Center(child: CircularProgressIndicator(color: Colors.white));
+          }
+          if (state is AllUsersLoaded) {
+            return ListView.builder(
+              itemCount: state.allUsers.length, 
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    // Optional: Add tap action here if needed
+                  },
+                  child: Container(
+                    height: 60,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: AppColors.darkBackground, width: 1),
                       ),
                     ),
-                  );
-                },
-              );
-            }
-            if (state is FavouriteSongsLoadingFailed) {
-              return const Center(child: Text('Please try again.', style: TextStyle(color: Colors.white)));
-            }
-            return Container();
-          },
-        ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.assignment_ind_rounded, size: 30),
+                        const SizedBox(width: 15),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                state.allUsers[index].username ?? 'Unknown', // Display username
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                state.allUsers[index].email ?? 'Unknown', // Display email
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              // Add buttons to block or delete the user
+                            ],
+                          ),
+                        ),
+                         if (state.allUsers[index].role != 'admin')
+                         Row(
+                          children: [
+                            IconButton(
+                              onPressed: () async {
+                                // Implement block user functionality
+                                // e.g., await context.read<AuthFirebaseService>().blockUser(state.allUsers[index].id);
+                              },
+                              icon: Icon(Icons.block_rounded),
+                            ),
+                            IconButton(
+                              onPressed: () async {
+                                // Implement block user functionality
+                                // e.g., await context.read<AuthFirebaseService>().blockUser(state.allUsers[index].id);
+                              },
+                              icon: Icon(Icons.delete),
+                            ),
+                          ],
+                        ), 
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+          if (state is AllUsersLoadingFailed) {
+            return const Center(child: Text('Failed to load users. Please try again.', style: TextStyle(color: Colors.white)));
+          }
+          return Container(); // Return an empty container for unhandled states
+        },
       ),
-    );
-  }
+    ),
+  );
+}
 }

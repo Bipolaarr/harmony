@@ -20,10 +20,19 @@ class UserModel {
     username = data['username'];
     email = data['email'];
     imageURL = data['imageURL'];
-    role = 'user';
-    
-  }
+    role = data['role'] ?? 'user';
   
+  }
+
+  UserEntity toEntity() {
+    return UserEntity(
+      username: username,
+      email: email,
+      imageURL: imageURL,
+      role: role,
+    );
+  }
+
 }
 
 extension UserModelX on UserModel {
