@@ -32,7 +32,7 @@ class PlaylistPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 10), 
+        padding: const EdgeInsets.only(left: 15, right: 5), // Adjust padding as needed
         child: ListView.builder(
           itemCount: songs.length,
           itemBuilder: (context, index) {

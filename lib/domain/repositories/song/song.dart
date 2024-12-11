@@ -16,4 +16,12 @@ abstract class SongsRepository {
 
   Future <bool> isFavourite(String SongId);
 
+  Future <Either> getUserFavouriteSongs();
+
+  // Future <Either> getAllSongs();
+
+  // Future <void> deleteSong();
+
+  // Future <void> addSong();
+
 }

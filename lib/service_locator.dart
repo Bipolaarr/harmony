@@ -19,6 +19,7 @@ import 'package:harmony/domain/usecases/get_new_songs.dart';
 import 'package:harmony/domain/usecases/get_songs_by_artist.dart';
 import 'package:harmony/domain/usecases/get_songs_by_genre.dart';
 import 'package:harmony/domain/usecases/get_user.dart';
+import 'package:harmony/domain/usecases/get_user_favourites.dart';
 import 'package:harmony/domain/usecases/is_favourite.dart';
 import 'package:harmony/domain/usecases/signin.dart';
 import 'package:harmony/domain/usecases/signup.dart';
@@ -106,5 +107,9 @@ Future<void> initDependencies() async {
 
   serviceLocator.registerSingleton<GetUserUseCase>(
     GetUserUseCase()
+  );
+
+  serviceLocator.registerSingleton<GetUserFavouriteSongsUseCase>(
+    GetUserFavouriteSongsUseCase()
   );
 }
