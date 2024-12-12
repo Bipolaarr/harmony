@@ -16,9 +16,7 @@ abstract class AuthFirebaseService {
   Future<Either> getUser();
   Future<Either<String, String>> updateUser(UpdateUserReq request);
   Future<Either<String, List<UserEntity>>> getAllUsers();
-
   Future<Either<String, void>> deleteUser(String userId);
-  
   Future<Either<String, String>> blockUser(UserEntity user);
 
 }
@@ -183,7 +181,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         await firebaseAuth.currentUser?.updateEmail(request.email!);
       }
       if (request.newPassword != null) {
-        updates['password'] = request.newPassword;
+        updates['password'] = encode(request.newPassword!);
         await firebaseAuth.currentUser?.updatePassword(request.newPassword!);
       }
 
