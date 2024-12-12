@@ -21,7 +21,7 @@ abstract class SongsRepository {
 
   Future <Either> getAllSongs();
 
-  // Future <void> deleteSong();
+  Future<Either<String, void>> deleteSong(String songId);
 
   // Future <void> addSong();
 

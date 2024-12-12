@@ -68,6 +68,10 @@ class SongsRepositoryImplementation extends SongsRepository{
     return await serviceLocator<SongsFirebaseService>().searchSongs(query);
   }
   
+  @override
+  Future<Either<String, void>> deleteSong(String songId) async  {
+    return await serviceLocator<SongsFirebaseService>().deleteSong(songId);
+  }
 
 
 

@@ -345,7 +345,7 @@ class AdminPage extends StatelessWidget {
                             children: [
                               IconButton(
                                 onPressed: () async {
-                                  context.read<AllSongsCubit>().removeSong(index);
+                                  context.read<AllSongsCubit>().deleteSong(state.allSongs[index].songId);
                                 },
                                 icon: Icon(Icons.delete),
                               ),

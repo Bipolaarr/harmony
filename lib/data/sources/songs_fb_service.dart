@@ -28,6 +28,8 @@ abstract class SongsFirebaseService {
 
   Future<Either> getAllSongs();
 
+  Future<Either<String, void>> deleteSong(String songId);
+
   //---
 
   Future<Either<String, List<SongEntity>>> searchSongs(String query);
@@ -274,6 +276,18 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
 
     }
 
+  }
+
+  Future<Either<String, void>> deleteSong(String songId) async {
+    try {
+      
+      await FirebaseFirestore.instance.collection('Songs').doc(songId).delete();
+
+      return const Right(null); 
+
+    } catch (e) {
+      return Left('Failed to delete song: ${e.toString()}');
+    }
   }
 
   @override

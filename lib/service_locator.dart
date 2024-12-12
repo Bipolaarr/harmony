@@ -14,6 +14,7 @@ import 'package:harmony/domain/repositories/song/song.dart';
 import 'package:harmony/domain/usecases/add_or_remove_favourite.dart';
 import 'package:harmony/domain/usecases/block_user.dart';
 import 'package:harmony/domain/usecases/create_top_picks_block.dart';
+import 'package:harmony/domain/usecases/delete_song.dart';
 import 'package:harmony/domain/usecases/delete_user.dart';
 import 'package:harmony/domain/usecases/get_all_artists.dart';
 import 'package:harmony/domain/usecases/get_all_genres.dart';
@@ -137,6 +138,10 @@ Future<void> initDependencies() async {
 
   serviceLocator.registerSingleton<BlockUserUseCase>(
     BlockUserUseCase()
+  );
+
+  serviceLocator.registerSingleton<DeleteSongUseCase>(
+    DeleteSongUseCase()
   );
 
   //----
