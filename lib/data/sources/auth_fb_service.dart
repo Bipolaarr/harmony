@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,28 +18,38 @@ abstract class AuthFirebaseService {
   Future<Either<String, List<UserEntity>>> getAllUsers();
 
   Future<Either<String, void>> deleteUser(String userId);
+  
   Future<Either<String, String>> blockUser(UserEntity user);
 
 }
 
 class AuthFirebaseServiceImplementation extends AuthFirebaseService {
 
+  String encode(String password) => base64Encode(utf8.encode(password));
+
+  String decode(String encodedPassword) => utf8.decode(base64Decode(encodedPassword));
+
   @override
   Future<Either<String, Map<String, String>>> signin(SigninUserReq request) async {
+
     try {
+      
+      // Sign in the user
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: request.email,
         password: request.password,
       );
 
+      // Retrieve the user document from Firestore
       var userDoc = await FirebaseFirestore.instance.collection('Users').doc(userCredential.user?.uid).get();
 
-      
+      // Check if the user document exists
       if (!userDoc.exists) {
         return Left('User not found');
       }
 
-      String role = userDoc['role'];
+      // Get user role and return success message
+      String role = userDoc.data()?['role'] ?? 'user'; // Default to 'user' if role is not found
       return Right({'message': 'Welcome back!', 'role': role});
       
     } on FirebaseAuthException catch (e) {
@@ -56,12 +68,17 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
           msg = 'An unknown error occurred';
       }
       return Left(msg);
+    } catch (e) {
+      return Left('An error occurred: ${e.toString()}');
     }
   }
 
   @override
-  Future<Either> signup(CreateUserReq request) async {
+  Future<Either<String, String>> signup(CreateUserReq request) async {
+    String encode(String password) => base64Encode(utf8.encode(password));
+
     try {
+      // Create user in Firebase Auth
       var data = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: request.email,
         password: request.password,
@@ -70,11 +87,12 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
       String uid = data.user!.uid;
 
       // Set user data in Firestore including the role
-      await FirebaseFirestore.instance.collection('Users').doc(data.user?.uid).set({
+      await FirebaseFirestore.instance.collection('Users').doc(uid).set({
         'username': request.username,
         'email': data.user?.email,
         'role': 'user',
-        'uid' : uid
+        'uid': uid,
+        'password': encode(request.password), // Encode password here
       });
 
       return const Right('Account has been successfully created');
@@ -217,16 +235,40 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
     }
   }
 
-  @override
   Future<Either<String, void>> deleteUser(String userId) async {
-    try {
-      await FirebaseFirestore.instance.collection('Users').doc(userId).delete();
+  try {
+    // Retrieve the user's document from Firestore
+    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection('Users').doc(userId).get();
 
-      return const Right(null); // Return null on successful deletion
-    } catch (e) {
-      return Left('Failed to delete user: ${e.toString()}');
+    await FirebaseFirestore.instance.collection('Users').doc(userId).delete();
+
+    if (!userSnapshot.exists) {
+      return Left('User not found');
     }
+
+    // Get the email and password from Firestore
+    Map<String, dynamic> userData = userSnapshot.data() as Map<String, dynamic>;
+    String email = userData['email'];
+    String password = userData['password']; // Make sure this is stored securely
+
+    // Delete the user from Firebase Authentication
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: decode(password), // Ensure you have the user's password
+    );
+
+    // Check if the user was authenticated successfully
+    if (userCredential.user == null) {
+      return Left('Failed to authenticate user for deletion');
+    }
+
+    await userCredential.user?.delete(); // Delete from Firebase Auth
+
+    return const Right(null); // Return null on successful deletion
+  } catch (e) {
+    return Left('Failed to delete user: ${e.toString()}');
   }
+}
 
   @override
   Future<Either<String, String>> blockUser(UserEntity user) async {
