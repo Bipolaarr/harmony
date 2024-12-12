@@ -262,7 +262,7 @@ class AdminPage extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () async {
-                                  // context.read<AllUsersCubit>().removeUser(index);
+                                  context.read<AllUsersCubit>().deleteUser(state.allUsers[index].uid!);
                                 },
                                 icon: Icon(Icons.delete),
                               ),

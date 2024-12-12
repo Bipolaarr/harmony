@@ -4,12 +4,14 @@ class UserEntity {
   String ? email;
   String ? imageURL; 
   String role;
+  String ? uid;
 
   UserEntity({
     this.username,
     this.email,
     this.imageURL,
-    this.role = 'user'
+    this.role = 'user',
+    this.uid
   });
 
 

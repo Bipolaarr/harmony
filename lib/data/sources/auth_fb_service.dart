@@ -31,6 +31,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
       );
 
       var userDoc = await FirebaseFirestore.instance.collection('Users').doc(userCredential.user?.uid).get();
+
       
       if (!userDoc.exists) {
         return Left('User not found');
@@ -66,12 +67,14 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         password: request.password,
       );
 
+      String uid = data.user!.uid;
+
       // Set user data in Firestore including the role
       await FirebaseFirestore.instance.collection('Users').doc(data.user?.uid).set({
         'username': request.username,
         'email': data.user?.email,
-        'role': 'user', // Assign role automatically
-        // Optionally, you can add other fields like imageURL here
+        'role': 'user',
+        'uid' : uid
       });
 
       return const Right('Account has been successfully created');
