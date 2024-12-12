@@ -35,4 +35,16 @@ class AuthRepositoryImplementation extends AuthRepository {
      return await serviceLocator<AuthFirebaseService>().getAllUsers();
   }
 
+  //----
+  
+  @override
+  Future<Either<String, void>> deleteUser(String userId) async  {
+    return await serviceLocator<AuthFirebaseService>().deleteUser(userId);
+  }
+  
+  @override
+  Future<Either<String, String>> blockUser(UserEntity user) async{
+    return await serviceLocator<AuthFirebaseService>().blockUser(user);
+  }
+
 }

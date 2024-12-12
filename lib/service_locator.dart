@@ -13,6 +13,7 @@ import 'package:harmony/domain/repositories/genre/genre.dart';
 import 'package:harmony/domain/repositories/song/song.dart';
 import 'package:harmony/domain/usecases/add_or_remove_favourite.dart';
 import 'package:harmony/domain/usecases/create_top_picks_block.dart';
+import 'package:harmony/domain/usecases/delete_user.dart';
 import 'package:harmony/domain/usecases/get_all_artists.dart';
 import 'package:harmony/domain/usecases/get_all_genres.dart';
 import 'package:harmony/domain/usecases/get_all_songs.dart';
@@ -23,6 +24,7 @@ import 'package:harmony/domain/usecases/get_songs_by_genre.dart';
 import 'package:harmony/domain/usecases/get_user.dart';
 import 'package:harmony/domain/usecases/get_user_favourites.dart';
 import 'package:harmony/domain/usecases/is_favourite.dart';
+import 'package:harmony/domain/usecases/search_usecase.dart';
 import 'package:harmony/domain/usecases/signin.dart';
 import 'package:harmony/domain/usecases/signup.dart';
 import 'package:harmony/domain/usecases/update_user.dart';
@@ -127,4 +129,15 @@ Future<void> initDependencies() async {
   serviceLocator.registerSingleton<GetAllSongsUseCase>(
     GetAllSongsUseCase()
   );
+
+  //----
+
+  serviceLocator.registerSingleton<DeleteUserUseCase>(
+    DeleteUserUseCase()
+  );
+
+  serviceLocator.registerSingleton<SearchUseCase>(
+    SearchUseCase()
+  );
+
 }

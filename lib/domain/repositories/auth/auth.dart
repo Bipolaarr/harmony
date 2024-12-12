@@ -14,6 +14,12 @@ abstract class AuthRepository {
 
   Future<Either<String, String>> updateUser(UpdateUserReq request);
 
-   Future<Either<String, List<UserEntity>>> getAllUsers();
+  Future<Either<String, List<UserEntity>>> getAllUsers();
+
+  //-----
+
+  Future<Either<String, void>> deleteUser(String userId);
+
+  Future<Either<String, String>> blockUser(UserEntity user);
 
 }

@@ -1,5 +1,4 @@
 
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harmony/domain/entities/user/user.dart';
 import 'package:harmony/domain/usecases/get_all_users.dart';
@@ -13,30 +12,23 @@ class AllUsersCubit extends Cubit<AllUsersState> {
   List<UserEntity> usersList = [];
 
   Future<void> getAllUsers() async {
-   
-   var result  = await serviceLocator<GetAllUsersUseCase>().call();
-   
-   result.fold(
-    (l){
-      emit(
-        AllUsersLoadingFailed()
-      );
-    },
-    (data){
+    
+    var result  = await serviceLocator<GetAllUsersUseCase>().call();
+    
+    result.fold(
+      (l){
+        emit(
+          AllUsersLoadingFailed()
+        );
+      },
+      (data){
 
-      usersList = data;
-      emit(
-        AllUsersLoaded(allUsers: usersList)
-      );
-    }
-  );
-}
-
- void removeSong(int index) {
-   usersList.removeAt(index);
-   emit(
-     AllUsersLoaded(allUsers: usersList)
-   );
- }
+        usersList = data;
+        emit(
+          AllUsersLoaded(allUsers: usersList)
+        );
+      }
+    );
+  }
 
 }

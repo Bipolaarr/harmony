@@ -2,6 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:harmony/data/sources/songs_fb_service.dart';
+import 'package:harmony/domain/entities/song/song.dart';
 import 'package:harmony/domain/repositories/song/song.dart';
 import 'package:harmony/service_locator.dart';
 
@@ -60,6 +61,11 @@ class SongsRepositoryImplementation extends SongsRepository{
 
     return await serviceLocator<SongsFirebaseService>().getAllSongs();
 
+  }
+  
+  @override
+  Future<Either<String, List<SongEntity>>> searchSongs(String query) async {
+    return await serviceLocator<SongsFirebaseService>().searchSongs(query);
   }
   
 

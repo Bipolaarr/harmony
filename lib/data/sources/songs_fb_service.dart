@@ -28,6 +28,10 @@ abstract class SongsFirebaseService {
 
   Future<Either> getAllSongs();
 
+  //---
+
+  Future<Either<String, List<SongEntity>>> searchSongs(String query);
+
 }
 
 class SongsFirebaseServiceImplementation implements SongsFirebaseService {
@@ -271,6 +275,50 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
     }
 
   }
+
+  @override
+  Future<Either<String, List<SongEntity>>> searchSongs(String query) async {
+    try {
+      List<SongEntity> searchResults = [];
+
+      // Поиск по названиям
+      var titleData = await FirebaseFirestore.instance.collection('Songs')
+          .where('title', isGreaterThanOrEqualTo: query)
+          .where('title', isLessThanOrEqualTo: query + '\uf8ff')
+          .get();
+
+      // Поиск по исполнителям
+      var artistData = await FirebaseFirestore.instance.collection('Songs')
+          .where('artist', isGreaterThanOrEqualTo: query)
+          .where('artist', isLessThanOrEqualTo: query + '\uf8ff')
+          .get();
+
+      // Обработка результатов поиска по названиям
+      for (var element in titleData.docs) {
+        var songModel = SongModel.fromJson(element.data());
+        bool isFavourite = await serviceLocator<IsFavouriteUseCase>().call(params: element.reference.id);
+        songModel.isFavourite = isFavourite;
+        songModel.songId = element.reference.id;
+        searchResults.add(songModel.toEntity());
+      }
+
+      // Обработка результатов поиска по исполнителям
+      for (var element in artistData.docs) {
+        var songModel = SongModel.fromJson(element.data());
+        bool isFavourite = await serviceLocator<IsFavouriteUseCase>().call(params: element.reference.id);
+        songModel.isFavourite = isFavourite;
+        songModel.songId = element.reference.id;
+        if (!searchResults.any((song) => song.songId == songModel.songId)) {
+          searchResults.add(songModel.toEntity());
+        }
+      }
+
+      return Right(searchResults);
+    } catch (e) {
+      return const Left('An error occurred, try again');
+    }
+  }
+  
 
 }
 

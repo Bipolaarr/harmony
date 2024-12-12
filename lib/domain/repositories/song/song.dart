@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:dartz/dartz.dart';
+import 'package:harmony/domain/entities/song/song.dart';
 
 abstract class SongsRepository { 
 
@@ -23,5 +24,7 @@ abstract class SongsRepository {
   // Future <void> deleteSong();
 
   // Future <void> addSong();
+
+  Future<Either<String, List<SongEntity>>> searchSongs(String query);
 
 }

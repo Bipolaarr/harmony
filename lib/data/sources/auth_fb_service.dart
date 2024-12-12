@@ -14,6 +14,10 @@ abstract class AuthFirebaseService {
   Future<Either> getUser();
   Future<Either<String, String>> updateUser(UpdateUserReq request);
   Future<Either<String, List<UserEntity>>> getAllUsers();
+
+  Future<Either<String, void>> deleteUser(String userId);
+  Future<Either<String, String>> blockUser(UserEntity user);
+
 }
 
 class AuthFirebaseServiceImplementation extends AuthFirebaseService {
@@ -205,6 +209,37 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
       }).toList();
 
       return Right(users);
+    } catch (e) {
+      return Left('An error occurred: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<Either<String, void>> deleteUser(String userId) async {
+    try {
+      await FirebaseFirestore.instance.collection('Users').doc(userId).delete();
+
+      return const Right(null); // Return null on successful deletion
+    } catch (e) {
+      return Left('Failed to delete user: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<Either<String, String>> blockUser(UserEntity user) async {
+    try {
+      // Check if the user is currently signed in
+      String? uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid == null) {
+        return const Left('No user is currently signed in');
+      }
+
+      // Update the user's status in Firestore
+      await FirebaseFirestore.instance.collection('Users').doc(user.username).update({
+        'isBlocked': true, // Assuming you have an 'isBlocked' field in Firestore
+      });
+
+      return const Right('User has been successfully blocked');
     } catch (e) {
       return Left('An error occurred: ${e.toString()}');
     }

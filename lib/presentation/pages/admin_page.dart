@@ -262,8 +262,7 @@ class AdminPage extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () async {
-                                  // Implement block user functionality
-                                  // e.g., await context.read<AuthFirebaseService>().blockUser(state.allUsers[index].id);
+                                  // context.read<AllUsersCubit>().removeUser(index);
                                 },
                                 icon: Icon(Icons.delete),
                               ),
@@ -347,8 +346,7 @@ class AdminPage extends StatelessWidget {
                             children: [
                               IconButton(
                                 onPressed: () async {
-                                  // Implement block user functionality
-                                  // e.g., await context.read<AuthFirebaseService>().blockUser(state.allUsers[index].id);
+                                  context.read<AllSongsCubit>().removeSong(index);
                                 },
                                 icon: Icon(Icons.delete),
                               ),
