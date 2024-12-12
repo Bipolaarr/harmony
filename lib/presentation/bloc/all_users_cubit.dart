@@ -1,6 +1,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harmony/domain/entities/user/user.dart';
+import 'package:harmony/domain/usecases/block_user.dart';
 import 'package:harmony/domain/usecases/delete_user.dart';
 import 'package:harmony/domain/usecases/get_all_users.dart';
 import 'package:harmony/presentation/bloc/all_users_state.dart';
@@ -49,4 +50,19 @@ class AllUsersCubit extends Cubit<AllUsersState> {
     );
   }
 
+  Future<void> blockUser(UserEntity user) async {
+    // Call the Firestore method to update the blocked status
+    var result = await serviceLocator<BlockUserUseCase>().call(params: user);
+
+    result.fold(
+      (errorMessage) {
+        emit(AllUsersLoadingFailed()); // Emit failure state on error
+      },
+      (_) {
+        // Update the local usersList to reflect the new blocked status
+        user.isBlocked = !user.isBlocked; // Toggle the local blocked status
+        emit(AllUsersLoaded(allUsers: usersList)); // Emit updated user list
+      },
+    );
+  }
 }

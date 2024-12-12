@@ -12,6 +12,7 @@ import 'package:harmony/domain/repositories/auth/auth.dart';
 import 'package:harmony/domain/repositories/genre/genre.dart';
 import 'package:harmony/domain/repositories/song/song.dart';
 import 'package:harmony/domain/usecases/add_or_remove_favourite.dart';
+import 'package:harmony/domain/usecases/block_user.dart';
 import 'package:harmony/domain/usecases/create_top_picks_block.dart';
 import 'package:harmony/domain/usecases/delete_user.dart';
 import 'package:harmony/domain/usecases/get_all_artists.dart';
@@ -130,11 +131,15 @@ Future<void> initDependencies() async {
     GetAllSongsUseCase()
   );
 
-  //----
-
   serviceLocator.registerSingleton<DeleteUserUseCase>(
     DeleteUserUseCase()
   );
+
+  serviceLocator.registerSingleton<BlockUserUseCase>(
+    BlockUserUseCase()
+  );
+
+  //----
 
   serviceLocator.registerSingleton<SearchUseCase>(
     SearchUseCase()

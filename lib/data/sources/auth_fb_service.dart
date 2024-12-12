@@ -49,7 +49,9 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
       }
 
       // Get user role and return success message
-      String role = userDoc.data()?['role'] ?? 'user'; // Default to 'user' if role is not found
+      String role = userDoc.data()?['role'] ?? 'user'; 
+      bool isBlocked = userDoc.data()?['isBlocked'];
+      if (isBlocked) return Left('Your account has been suspended');
       return Right({'message': 'Welcome back!', 'role': role});
       
     } on FirebaseAuthException catch (e) {
@@ -92,7 +94,8 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         'email': data.user?.email,
         'role': 'user',
         'uid': uid,
-        'password': encode(request.password), // Encode password here
+        'password': encode(request.password),
+        'isBlocked' : false // Encode password here
       });
 
       return const Right('Account has been successfully created');
@@ -273,15 +276,9 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
   @override
   Future<Either<String, String>> blockUser(UserEntity user) async {
     try {
-      // Check if the user is currently signed in
-      String? uid = FirebaseAuth.instance.currentUser?.uid;
-      if (uid == null) {
-        return const Left('No user is currently signed in');
-      }
-
-      // Update the user's status in Firestore
-      await FirebaseFirestore.instance.collection('Users').doc(user.username).update({
-        'isBlocked': true, // Assuming you have an 'isBlocked' field in Firestore
+      
+      await FirebaseFirestore.instance.collection('Users').doc(user.uid).update({
+        'isBlocked': !user.isBlocked, // Assuming you have an 'isBlocked' field in Firestore
       });
 
       return const Right('User has been successfully blocked');

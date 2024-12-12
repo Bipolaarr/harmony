@@ -8,6 +8,7 @@ class UserModel {
   String role = 'user';
   String ? uid;
   String ? password;
+  bool isBlocked;
 
   UserModel({
     this.username,
@@ -15,18 +16,18 @@ class UserModel {
     this.imageURL,
     required this.role,
     this.uid,
-    this.password
+    this.password,
+    required this.isBlocked
   });
 
-  UserModel.fromJson(Map<String,dynamic> data) {
-
-    username = data['username'];
-    email = data['email'];
-    imageURL = data['imageURL'];
-    role = data['role'] ?? 'user';
-    uid = data['uid'];
-    password = data['password'];
-  }
+  UserModel.fromJson(Map<String, dynamic> data) :
+    username = data['username'],
+    email = data['email'],
+    imageURL = data['imageURL'],
+    role = data['role'] ?? 'user',
+    uid = data['uid'],
+    password = data['password'],
+    isBlocked = data['isBlocked'] ?? false; 
 
   UserEntity toEntity() {
     return UserEntity(
@@ -35,13 +36,10 @@ class UserModel {
       imageURL: imageURL,
       role: role,
       uid: uid,
-      password: password
+      password: password,
+      isBlocked: isBlocked
     );
   }
-
-  // String encode(String password) =>  base64Encode(utf8.encode(password));
-
-  // String decode(String encodedPassword) => utf8.decode(base64Decode(encodedPassword));
 
 }
 
@@ -53,7 +51,8 @@ extension UserModelX on UserModel {
       imageURL: imageURL,
       role: role,
       uid: uid,
-      password: password
+      password: password,
+      isBlocked: isBlocked
     );
 
   }

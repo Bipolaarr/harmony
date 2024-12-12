@@ -255,14 +255,12 @@ class AdminPage extends StatelessWidget {
                             children: [
                               IconButton(
                                 onPressed: () async {
-                                  // Implement block user functionality
-                                  // e.g., await context.read<AuthFirebaseService>().blockUser(state.allUsers[index].id);
+                                  context.read<AllUsersCubit>().blockUser(state.allUsers[index]);
                                 },
-                                icon: Icon(Icons.block_rounded),
+                                icon: state.allUsers[index].isBlocked ?  Icon(Icons.check) : Icon(Icons.block_rounded)
                               ),
                               IconButton(
                                 onPressed: () async {
-                                  print(state.allUsers[index].uid!);
                                   context.read<AllUsersCubit>().deleteUser(state.allUsers[index].uid!);
                                 },
                                 icon: Icon(Icons.delete),

@@ -7,6 +7,7 @@ class UserEntity {
   String role;
   String ? uid;
   String ? password;
+  bool isBlocked;
 
   UserEntity({
     this.username,
@@ -14,7 +15,8 @@ class UserEntity {
     this.imageURL,
     this.role = 'user',
     this.uid,
-    this.password
+    this.password,
+    this.isBlocked = false
   });
   
 }
