@@ -8,6 +8,7 @@ import 'package:harmony/core/configs/theme/app_colors.dart';
 import 'package:harmony/domain/usecases/get_songs_by_artist.dart';
 import 'package:harmony/presentation/pages/playlist_page.dart';
 import 'package:harmony/presentation/pages/profile_page.dart';
+import 'package:harmony/presentation/pages/search_page.dart';
 import 'package:harmony/presentation/widgets/all_artists.dart';
 import 'package:harmony/presentation/widgets/all_genres.dart';
 import 'package:harmony/presentation/widgets/new_songs.dart';
@@ -47,6 +48,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           AppVectors.whiteNamedLogo,
           height: 40,
         ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchPage()));
+              }, icon: 
+              Icon(
+                Icons.search,
+                size: 35,
+                color: Colors.white
+              )
+            ) 
+          )
+        ],
       ),
       body: SingleChildScrollView(  
         child: Column(

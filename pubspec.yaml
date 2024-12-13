@@ -35,6 +35,8 @@ dependencies:
 
   just_audio:
 
+  equatable: ^2.0.0
+
 
 
 dev_dependencies:
