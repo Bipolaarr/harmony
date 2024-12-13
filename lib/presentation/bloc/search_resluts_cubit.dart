@@ -10,23 +10,20 @@ class SearchResultsCubit extends Cubit<SearchResultsState> {
   
   List<SongEntity> foundSongs = [];
 
-  Future<void> searchSongs() async {
-   
-   var result  = await serviceLocator<SearchUseCase>().call();
-   
-   result.fold(
-    (l){
-      emit(
-        SearchResultsLoadingFailed()
-      );
-    },
-    (r){
-      foundSongs = r;
-      emit(
-        SearchResultsLoaded(foundSongs: foundSongs)
-      );
-    }
-  );
-}
+  Future<void> searchSongs(String query) async {
+    // emit(SearchResultsLoading()); 
+
+    var result = await serviceLocator<SearchUseCase>().call(params: query);
+
+    result.fold(
+      (l) {
+        emit(SearchResultsLoadingFailed());
+      },
+      (r) {
+        foundSongs = r;
+        emit(SearchResultsLoaded(foundSongs: foundSongs));
+      },
+    );
+  }
 
 }

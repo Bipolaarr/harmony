@@ -10,7 +10,7 @@ class SongEntity {
   final Timestamp releaseDate; 
   final String album;
   final bool isFavourite;
-  final String songId; 
+  String songId; 
 
   SongEntity ({
     required this.title,

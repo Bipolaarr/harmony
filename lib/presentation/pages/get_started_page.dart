@@ -19,7 +19,7 @@ class GetStartedPage extends StatelessWidget{
           Container(
             padding: const EdgeInsets.symmetric(
               vertical: 20, 
-              horizontal: 40
+              horizontal: 30
             ), 
             decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -58,6 +58,8 @@ class GetStartedPage extends StatelessWidget{
                 ),
                 const SizedBox(height: 14,),
                 BasicAppButton(
+                  width: 370,
+                  height: 60,
                   onPressed: () {
                     Navigator.push(
                       context, 

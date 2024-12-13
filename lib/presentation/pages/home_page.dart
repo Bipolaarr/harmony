@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               }, icon: 
               Icon(
                 Icons.search,
-                size: 35,
+                size: 30,
                 color: Colors.white
               )
             ) 

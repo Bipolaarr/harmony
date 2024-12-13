@@ -290,45 +290,38 @@ class SongsFirebaseServiceImplementation implements SongsFirebaseService {
     }
   }
 
-  @override
   Future<Either<String, List<SongEntity>>> searchSongs(String query) async {
+    if (query.isEmpty) {
+      return Right([]); 
+    }
+
     try {
       List<SongEntity> searchResults = [];
+      String lowerCaseQuery = query.toLowerCase();
 
-      // Поиск по названиям
-      var titleData = await FirebaseFirestore.instance.collection('Songs')
-          .where('title', isGreaterThanOrEqualTo: query)
-          .where('title', isLessThanOrEqualTo: query + '\uf8ff')
-          .get();
+      var allSongsData = await FirebaseFirestore.instance.collection('Songs').get();
+      
+      for (var element in allSongsData.docs) {
+        var data = element.data();
 
-      // Поиск по исполнителям
-      var artistData = await FirebaseFirestore.instance.collection('Songs')
-          .where('artist', isGreaterThanOrEqualTo: query)
-          .where('artist', isLessThanOrEqualTo: query + '\uf8ff')
-          .get();
+         String songId = element.id;
 
-      // Обработка результатов поиска по названиям
-      for (var element in titleData.docs) {
-        var songModel = SongModel.fromJson(element.data());
-        bool isFavourite = await serviceLocator<IsFavouriteUseCase>().call(params: element.reference.id);
-        songModel.isFavourite = isFavourite;
-        songModel.songId = element.reference.id;
-        searchResults.add(songModel.toEntity());
-      }
+        var songModel = SongModel.fromJson(data); 
 
-      // Обработка результатов поиска по исполнителям
-      for (var element in artistData.docs) {
-        var songModel = SongModel.fromJson(element.data());
-        bool isFavourite = await serviceLocator<IsFavouriteUseCase>().call(params: element.reference.id);
-        songModel.isFavourite = isFavourite;
-        songModel.songId = element.reference.id;
-        if (!searchResults.any((song) => song.songId == songModel.songId)) {
-          searchResults.add(songModel.toEntity());
+        SongEntity songEntity = songModel.toEntity()..songId = songId;
+
+        String title = songEntity.title.toLowerCase(); 
+        String artist = songEntity.artist.toLowerCase();
+        
+        if (title.startsWith(lowerCaseQuery) || artist.startsWith(lowerCaseQuery)) {
+          searchResults.add(songEntity);
         }
       }
 
+      print('Total search results: ${searchResults.length}'); // Debugging line
       return Right(searchResults);
     } catch (e) {
+      print('Error occurred: $e'); // Debugging line
       return const Left('An error occurred, try again');
     }
   }

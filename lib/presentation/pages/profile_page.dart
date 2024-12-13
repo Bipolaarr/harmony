@@ -19,10 +19,10 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        elevation: 0,
+        backgroundColor: Colors.white,
+        scrolledUnderElevation: 0,
         centerTitle: true,
-        toolbarHeight: 30,
+        toolbarHeight: 50,
         title: const Text(
           'Your Profile',
           style: TextStyle(
@@ -56,6 +56,7 @@ class ProfilePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: BasicAppButton(
                     height: 60,
+                    width: 370,
                     onPressed: () {
                         Navigator.pushAndRemoveUntil(
                           context,
